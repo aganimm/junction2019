@@ -31,16 +31,16 @@ public class UserRepository extends AbstractDbRepository {
         try {
             MapSqlParameterSource namedParameters = new MapSqlParameterSource("user_id", userId);
 
-            return jdbcTemplate.queryForList(SQL_SELECT_USER_BY_ID, namedParameters, getUserProfileRowMapper()).size() != 0;
+            return npjtTemplate.query(SQL_SELECT_USER_BY_ID, namedParameters, getUserProfileRowMapper()).size() != 0;
         } catch (DataAccessException ex) {
             logger.error("Invoke existUserById({}).", userId, ex);
         }
-        return false;
+        return true;
     }
 
     public boolean updateUser(long userId, String miniAppToken, String accessToken) {
         try {
-            if (jdbcTemplate.update(SQL_UPDATE_USER_BY_ID, getNamedParameters(userId, miniAppToken, accessToken)) > 0) {
+            if (npjtTemplate.update(SQL_UPDATE_USER_BY_ID, getNamedParameters(userId, miniAppToken, accessToken)) > 0) {
                 return true;
             }
             logger.warn("Can't update user with id: {}.", userId);
@@ -52,7 +52,7 @@ public class UserRepository extends AbstractDbRepository {
 
     public boolean createUser(long userId, String miniAppToken, String accessToken) {
         try {
-            if (jdbcTemplate.update(SQL_INSERT_USER, getNamedParameters(userId, miniAppToken, accessToken)) > 0) {
+            if (npjtTemplate.update(SQL_INSERT_USER, getNamedParameters(userId, miniAppToken, accessToken)) > 0) {
                 return true;
             }
             logger.warn("Can't create user with id: {}.", userId);

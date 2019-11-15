@@ -16,7 +16,7 @@ public class UserService {
     }
 
     public boolean newUserRegistration(long userId, String miniAppToken, String accessToken) {
-        if (!userRepository.existUserById(userId)) {
+        if (userRepository.existUserById(userId)) {
             logger.info("User with id: {} already exist.", userId);
             return userRepository.updateUser(userId, miniAppToken, accessToken);
         } else {
