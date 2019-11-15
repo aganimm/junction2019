@@ -1,6 +1,5 @@
 package com.junction.vk.configuration;
 
-import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +22,7 @@ public class HikariPoolConfiguration {
     private int jdbcMinimumIdle;
 
     @Bean
-    public DataSource defaultDataSource() throws SQLException {
+    public DataSource defaultDataSource() {
         HikariConfig config = new HikariConfig();
         if (StringUtils.isEmpty(jdbcUrl)) {
             throw new IllegalArgumentException("Can't create data source");

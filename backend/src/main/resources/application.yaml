@@ -11,3 +11,15 @@ server:
 logging:
   level:
     com.junction.vk: debug
+
+executor:
+  default:
+    poolSize: 2
+  feed:
+    poolSize: 2
+
+scheduled:
+  default:
+    poolSize: 2
+  feed:
+    poolSize: 2
