@@ -50,6 +50,7 @@ const App = () => {
 
 	const onStoryChange = e => {
 		setActiveStory(e.currentTarget.dataset.story);
+		connect.send('VKWebAppTapticSelectionChanged');
 	};
 
 	return (
@@ -99,4 +100,3 @@ const App = () => {
 }
 
 export default App;
-
