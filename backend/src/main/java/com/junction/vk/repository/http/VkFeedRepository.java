@@ -13,12 +13,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import com.junction.vk.domain.api.ProductDescription;
 import com.junction.vk.domain.api.ProductWrapper;
 import com.junction.vk.util.HttpUtils;
 import com.junction.vk.util.JsonUtils;
 import com.junction.vk.util.TemplateUtils;
 
+@Repository
 public class VkFeedRepository extends AbstractHttpRepository {
     private static final Logger logger = LoggerFactory.getLogger(VkFeedRepository.class);
 

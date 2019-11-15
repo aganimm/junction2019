@@ -2,6 +2,7 @@ package com.junction.vk.controller;
 
 import java.util.Collection;
 import java.util.Collections;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ public class FeedController {
     }
 
     @GetMapping("/feed?count={count}&offset={offset}")
+    @CrossOrigin(origins = "*")
     public Collection<ProductCard> getFeedItemsWith(@PathVariable long count, @PathVariable long offset) {
         return Collections.emptyList();
     }
