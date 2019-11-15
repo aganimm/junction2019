@@ -1,0 +1,13 @@
+jdbc:
+  url: jdbc:postgresql://212.109.194.223:5432/junction2019
+  username: postgres
+  password: lor1q2w
+  poolSize: 30
+  minimumIdle: 0
+
+server:
+  port: 8090
+
+logging:
+  level:
+    com.junction.vk: debug
