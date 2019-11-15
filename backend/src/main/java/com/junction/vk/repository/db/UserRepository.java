@@ -1,5 +1,6 @@
 package com.junction.vk.repository.db;
 
+import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -13,8 +14,13 @@ import com.junction.vk.domain.UserProfile;
 public class UserRepository extends AbstractDbRepository {
     private static final Logger logger = LoggerFactory.getLogger(UserRepository.class);
 
-    private static final String SQL_SELECT_USER_BY_ID = "select user_id, mini_app_token, access_token from user_profile "
+    private static final String SQL_SELECT_USER =  "select user_id, mini_app_token, access_token from user_profile ";
+
+    private static final String SQL_SELECT_USER_BY_ID = SQL_SELECT_USER
             + "where user_id = :user_id";
+
+    private static final String SQL_SELECT_USER_BY_MINI_APP_TOKEN = SQL_SELECT_USER
+            + "where mini_app_token = :mini_app_token";
 
     private static final String SQL_INSERT_USER = "insert into user_profile (user_id, mini_app_token, access_token) "
             + "values (:user_id, :mini_app_token, :access_token)";
@@ -60,6 +66,17 @@ public class UserRepository extends AbstractDbRepository {
             logger.error("Invoke createUser({}, {}, {}).", userId, miniAppToken, accessToken, ex);
         }
         return false;
+    }
+
+    @Nullable
+    public UserProfile findUserProfileByMiniAppToken(String miniAppToken) {
+        try {
+            MapSqlParameterSource namedParameters = new MapSqlParameterSource("mini_app_token", miniAppToken);
+            return npjtTemplate.queryForObject(SQL_SELECT_USER_BY_MINI_APP_TOKEN, namedParameters, getUserProfileRowMapper());
+        } catch (DataAccessException ex) {
+            logger.error("Invoke getUserProfileByMiniAppToken({}) with exception.", miniAppToken, ex);
+        }
+        return null;
     }
 
     private static MapSqlParameterSource getNamedParameters(long userId, String miniAppToken, String accessToken) {
