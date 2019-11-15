@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import connect from '@vkontakte/vk-connect';
 import '@vkontakte/vkui/dist/vkui.css';
 import {
-	Root,
 	Epic,
 	Tabbar,
 	TabbarItem,
@@ -10,8 +9,6 @@ import {
 	View,
 	Panel,
 	PanelHeader,
-	Group,
-	CellButton
 } from '@vkontakte/vkui';
 
 
@@ -19,14 +16,12 @@ import Icon28Newsfeed from '@vkontakte/icons/dist/28/newsfeed';
 import Icon28Favorite from '@vkontakte/icons/dist/28/favorite';
 import Icon28Profile from '@vkontakte/icons/dist/28/profile';
 
-import Home from './panels/Home';
-import Persik from './panels/Persik';
+import Feed from './tabs/Feed';
 
 const App = () => {
 	const [activeStory, setActiveStory] = useState('feed');
-	const [activePanel, setActivePanel] = useState('panel1');
-	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 	const [fetchedUser, setUser] = useState(null);
+	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
 	useEffect(() => {
 		connect.subscribe(({ detail: { type, data }}) => {
@@ -43,10 +38,6 @@ const App = () => {
 		}
 		fetchData();
 	}, []);
-
-	const go = e => {
-		setActivePanel(e.currentTarget.dataset.to);
-	};
 
 	const onStoryChange = e => {
 		setActiveStory(e.currentTarget.dataset.story);
@@ -82,21 +73,9 @@ const App = () => {
 				</TabbarItem>
 			</Tabbar>
 		}>
-
-
-
-			<View activePanel={'panel1'}>
-				<Panel id="panel1">
-					<PanelHeader>Panel 1</PanelHeader>
-					<Group>
-						<CellButton>
-							Go to panel 2
-						</CellButton>
-					</Group>
-				</Panel>
-			</View>
+			<Feed id='feed' />
 		</Epic>
 	);
-}
+};
 
 export default App;

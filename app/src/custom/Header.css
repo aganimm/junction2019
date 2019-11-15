@@ -1,0 +1,14 @@
+.header {
+    background: #87E8C2;
+    position: absolute;
+    top: 0;
+    height: 29vh;
+    line-height: 15vh;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    width: 100%;
+    font-size: 5vh;
+    padding-left: 4vh;
+    transform: translateX(-2vh);
+    z-index: 1;
+}
