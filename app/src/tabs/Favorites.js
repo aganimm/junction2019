@@ -66,20 +66,19 @@ const Favorites = () => {
                     </div>
                 </div>
                   <div>
-                      <Button 
+                      <Button
+                      pos="ab" 
                       onClick={() => { setActivePanel('addList') }}
                       title={'Cоздать список'}/>
                   </div>
 			</Panel>
-			<Panel id='addList'>
+			<Panel  id='addList'>
                 <PanelHeader>
-					Добавить
+					Создание списка
 				</PanelHeader>
-				<div>
-                    <Input />
-                </div>
-                <div>
-                    <Button title="Создать" />
+				<div className="form">
+                    <Input title="Название списка" />
+                    <Button pos="noab" title="Создать" />
                 </div>
 			</Panel>
 		</View>
