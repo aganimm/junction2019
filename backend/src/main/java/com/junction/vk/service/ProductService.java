@@ -16,6 +16,7 @@ import com.junction.vk.domain.UserProfile;
 import com.junction.vk.domain.api.Product;
 import com.junction.vk.domain.api.ProductDescription;
 import com.junction.vk.domain.api.ProductWrapper;
+import com.junction.vk.domain.response.ApiResponse;
 import com.junction.vk.repository.db.ProductListRepository;
 import com.junction.vk.repository.http.VkProductRepository;
 
@@ -130,6 +131,10 @@ public class ProductService {
             return profile;
         }
         logger.debug("Mini app token is empty.");
+        return null;
+    }
+
+    public ApiResponse updateFeed(long productId, boolean licked, String miniAppToken) {
         return null;
     }
 }

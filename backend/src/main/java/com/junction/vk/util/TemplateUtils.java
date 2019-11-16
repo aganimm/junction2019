@@ -6,8 +6,11 @@ import java.util.Map;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 
-public class TemplateUtils {
+public final class TemplateUtils {
     private static final DefaultMustacheFactory factory = new DefaultMustacheFactory();
+
+    private TemplateUtils() {
+    }
 
     public static String buildTemplate(String template, Map<String, Object> params) {
         Mustache mustache = factory.compile(new StringReader(template), template, "{", "}");

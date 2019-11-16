@@ -2,6 +2,7 @@ package com.junction.vk.domain.response;
 
 public enum  ApiStatus {
     USER_CREATED,
+    USER_UPDATED,
 
     LIST_CREATED,
     LIST_REMOVED,

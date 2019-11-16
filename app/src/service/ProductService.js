@@ -1,11 +1,14 @@
 import ApiService from './ApiService';
-import UserService from './UserService';
 import UserCache from '../UserCache';
 
 export default class ProductService {
   static _it = new ProductService();
 
   _apiProduct = ApiService._apiBase + '/product';
+
+  async getProducts(count = 20, offset = 0) {
+    return await ApiService.getData(`${ this._apiProduct }?count=${count}&offset=${offset}`, UserCache._it.getMiniAppToken());
+  }
 
   /**
    * Массив списков пользователя

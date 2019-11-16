@@ -5,7 +5,10 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import com.junction.vk.domain.LookingForType;
 import com.junction.vk.domain.ProductListItem;
+import com.junction.vk.domain.UserProfile;
+import com.junction.vk.domain.response.ApiStatus;
 import com.junction.vk.repository.db.UserRepository;
 
 @Service
@@ -20,10 +23,12 @@ public class UserService {
         this.productService = productService;
     }
 
-    public boolean newUserRegistration(long userId, String miniAppToken, String accessToken) {
+    public ApiStatus newUserRegistration(long userId, String miniAppToken, String accessToken) {
         if (userRepository.existUserById(userId)) {
             logger.info("User with id: {} already exist.", userId);
-            return userRepository.updateUser(userId, miniAppToken, accessToken);
+            if (userRepository.updateUser(userId, miniAppToken, accessToken)) {
+                return ApiStatus.USER_UPDATED;
+            }
         } else {
             boolean isCreated = userRepository.createUser(userId, miniAppToken, accessToken);
 
@@ -34,13 +39,28 @@ public class UserService {
                 }
             }
 
-            return isCreated;
+            return ApiStatus.USER_CREATED;
         }
+        return ApiStatus.INTERNAL_ERROR;
     }
 
     @Nullable
     public String getSecurityToken(long userId, String accessToken) {
         //TODO Validation token
         return UUID.randomUUID().toString();
+    }
+
+    public UserProfile getUserProfileByToken(String miniAppToken) {
+        return userRepository.findUserProfileByMiniAppToken(miniAppToken);
+    }
+
+    public ApiStatus updateUserProfile(LookingForType lookingFor, String description, String miniAppToken) {
+        UserProfile profile = getUserProfileByToken(miniAppToken);
+
+        if (profile == null) {
+            return ApiStatus.INTERNAL_ERROR;
+        }
+        return userRepository.updatePersonalInfo(profile.getUserId(), lookingFor, description) ? ApiStatus.USER_UPDATED
+                : ApiStatus.INTERNAL_ERROR;
     }
 }

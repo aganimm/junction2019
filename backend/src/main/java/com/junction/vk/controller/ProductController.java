@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.junction.vk.domain.ProductListItem;
 import com.junction.vk.domain.ShortProductCard;
+import com.junction.vk.domain.dto.FeedDto;
 import com.junction.vk.domain.dto.ProductIdDto;
 import com.junction.vk.domain.response.ApiResponse;
 import com.junction.vk.domain.response.ApiResponseId;
@@ -39,6 +40,14 @@ public class ProductController {
     public ResponseEntity<Collection<ProductCard>> getProductCards(@RequestParam Long count, @RequestParam Long offset,
             HttpServletRequest request) {
         return ResponseEntity.ok(productService.getProductCards(count, offset, RequestUtils.getMiniAppToken(request)));
+    }
+
+    @PostMapping("/feed")
+    @CrossOrigin(origins = "*")
+    @ApiOperation(value = "Set feed for product id")
+    public ResponseEntity<ApiResponse> updateFeed(@RequestBody FeedDto feedDto, HttpServletRequest request) {
+        return ResponseEntity.ok(productService.updateFeed(feedDto.getProductId(), feedDto.isLicked(),
+                RequestUtils.getMiniAppToken(request)));
     }
 
     @GetMapping("/product/list")

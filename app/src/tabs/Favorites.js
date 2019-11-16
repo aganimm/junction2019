@@ -1,17 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '@vkontakte/vkui/dist/vkui.css';
-import {
-	Root,
-	Epic,
-	Tabbar,
-	TabbarItem,
-	ScreenSpinner,
-	View,
-	Panel,
-	PanelHeader,
-	Group,
-	CellButton
-} from '@vkontakte/vkui';
+import { Panel, PanelHeader, View } from '@vkontakte/vkui';
 
 import '../fonts.css';
 import './Favorites.css';
@@ -19,12 +8,10 @@ import '../custom/Header.css';
 import Button from '../custom/button';
 import Input from '../custom/input';
 
-import Icon36Cancel from '@vkontakte/icons/dist/36/cancel';
-import Icon28MarketOutline from '@vkontakte/icons/dist/28/market_outline';
-import Icon36Like from '@vkontakte/icons/dist/36/like';
-
 const Favorites = () => {
 	const [activePanel, setActivePanel] = useState('main');
+
+
 
 	return (
 		<View activePanel={ activePanel }>

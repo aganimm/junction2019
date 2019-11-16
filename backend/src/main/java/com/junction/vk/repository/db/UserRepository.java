@@ -8,13 +8,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
+import com.junction.vk.domain.LookingForType;
 import com.junction.vk.domain.UserProfile;
 
 @Repository
 public class UserRepository extends AbstractDbRepository {
     private static final Logger logger = LoggerFactory.getLogger(UserRepository.class);
 
-    private static final String SQL_SELECT_USER =  "select user_id, mini_app_token, access_token from user_profile ";
+    private static final String SQL_SELECT_USER = "select user_id, mini_app_token, access_token, looking_for,"
+            + "description from user_profile ";
 
     private static final String SQL_SELECT_USER_BY_ID = SQL_SELECT_USER
             + "where user_id = :user_id";
@@ -27,6 +29,10 @@ public class UserRepository extends AbstractDbRepository {
 
     private static final String SQL_UPDATE_USER_BY_ID = "update user_profile "
             + "set mini_app_token = :mini_app_token, access_token = :access_token "
+            + "where user_id = :user_id";
+
+    private static final String SQL_UPDATE_PERSONAL_INFO = "update user_profile "
+            + "set looking_for = :looking_for, description = :description "
             + "where user_id = :user_id";
 
     public UserRepository(JdbcTemplate fipJdbcTemplate) {
@@ -46,7 +52,8 @@ public class UserRepository extends AbstractDbRepository {
 
     public boolean updateUser(long userId, String miniAppToken, String accessToken) {
         try {
-            if (npjtTemplate.update(SQL_UPDATE_USER_BY_ID, getNamedParameters(userId, miniAppToken, accessToken)) > 0) {
+            if (npjtTemplate.update(SQL_UPDATE_USER_BY_ID, getNamedParameters(userId, miniAppToken, accessToken,
+                    null, null)) > 0) {
                 return true;
             }
             logger.warn("Can't update user with id: {}.", userId);
@@ -56,9 +63,23 @@ public class UserRepository extends AbstractDbRepository {
         return false;
     }
 
+    public boolean updatePersonalInfo(long userId, LookingForType lookingFor, String description) {
+        try {
+            if (npjtTemplate.update(SQL_UPDATE_PERSONAL_INFO, getNamedParameters(userId, null, null,
+                    lookingFor, description)) > 0) {
+                return true;
+            }
+            logger.warn("Can't update user personal info with id: {}.", userId);
+        } catch (DataAccessException ex) {
+            logger.error("Invoke updatePersonalInfo({}, {}, {}).", userId, lookingFor, description, ex);
+        }
+        return false;
+    }
+
     public boolean createUser(long userId, String miniAppToken, String accessToken) {
         try {
-            if (npjtTemplate.update(SQL_INSERT_USER, getNamedParameters(userId, miniAppToken, accessToken)) > 0) {
+            if (npjtTemplate.update(SQL_INSERT_USER, getNamedParameters(userId, miniAppToken, accessToken,
+                    null, null)) > 0) {
                 return true;
             }
             logger.warn("Can't create user with id: {}.", userId);
@@ -79,11 +100,22 @@ public class UserRepository extends AbstractDbRepository {
         return null;
     }
 
-    private static MapSqlParameterSource getNamedParameters(long userId, String miniAppToken, String accessToken) {
+    private static MapSqlParameterSource getNamedParameters(long userId, @Nullable String miniAppToken,
+            @Nullable String accessToken, @Nullable LookingForType lookingFor, @Nullable String description) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("user_id", userId);
-        namedParameters.addValue("mini_app_token", miniAppToken);
-        namedParameters.addValue("access_token", accessToken);
+        if (miniAppToken != null) {
+            namedParameters.addValue("mini_app_token", miniAppToken);
+        }
+        if (accessToken != null) {
+            namedParameters.addValue("access_token", accessToken);
+        }
+        if (lookingFor != null) {
+            namedParameters.addValue("looking_for", lookingFor.getName());
+        }
+        if (description != null) {
+            namedParameters.addValue("description", description);
+        }
         return namedParameters;
     }
 
@@ -91,7 +123,9 @@ public class UserRepository extends AbstractDbRepository {
         return (rs, i) -> new UserProfile(
                 rs.getLong("user_id"),
                 rs.getString("mini_app_token"),
-                rs.getString("access_token")
+                rs.getString("access_token"),
+                LookingForType.findTypeByName(rs.getString("looking_for")),
+                rs.getString("description")
         );
     }
 }
