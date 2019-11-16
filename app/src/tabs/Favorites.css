@@ -1,0 +1,29 @@
+.blocks {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 90%;
+}
+.block {
+    box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    background: #fff;
+    width: calc(47.5% - 40px);
+    padding: 20px;
+    margin-right: 5%;
+    margin-bottom: 5%;
+}
+.block:nth-child(even) {
+    margin-right: 0;
+}
+.block.active {
+    background: #3D75F6;
+}
+.date {
+    color: rgba(0, 0, 0, 0.5);
+}
+.block.active > .date {
+    color: rgba(255, 255, 255, 0.5);
+}

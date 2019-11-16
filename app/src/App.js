@@ -17,9 +17,10 @@ import Icon28Favorite from '@vkontakte/icons/dist/28/favorite';
 import Icon28Profile from '@vkontakte/icons/dist/28/profile';
 
 import Feed from './tabs/Feed';
+import Favorites from './tabs/Favorites';
 
 const App = () => {
-	const [activeStory, setActiveStory] = useState('feed');
+	const [activeStory, setActiveStory] = useState('favorites');
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
@@ -32,6 +33,7 @@ const App = () => {
 			}
 		});
 		async function fetchData() {
+			connect.send("VKWebAppGetAuthToken", {"app_id": 7210035, "scope": "friends,status"});
 			const user = await connect.sendPromise('VKWebAppGetUserInfo');
 			setUser(user);
 			setPopout(null);
@@ -74,6 +76,7 @@ const App = () => {
 			</Tabbar>
 		}>
 			<Feed id='feed' />
+			<Favorites id='favorites' />
 		</Epic>
 	);
 };
