@@ -34,30 +34,37 @@ const Favorites = () => {
 				<div className="circle"></div>
                 <div className="blocks">
                     <div className="block active">
+                        <div className="emj">🎩</div>
                         <div className="title white">Мои</div>
                         <div className="date">3 дня назад</div>
                     </div>
                     <div className="block">
+                    <div className="emj">👵</div>
                         <div className="title">Дм маме</div>
                         <div className="date">неделю назад</div>
                     </div>
                     <div className="block">
+                        <div className="emj">👵</div>
                         <div className="title">Дм маме</div>
                         <div className="date">неделю назад</div>
                     </div>
                     <div className="block">
+                        <div className="emj">👵</div>
                         <div className="title">Дм маме</div>
                         <div className="date">неделю назад</div>
                     </div>
                     <div className="block">
+                        <div className="emj">👵</div>
                         <div className="title">Дм маме</div>
                         <div className="date">неделю назад</div>
                     </div>
                     <div className="block">
+                        <div className="emj">👵</div>
                         <div className="title">Дм маме</div>
                         <div className="date">неделю назад</div>
                     </div>
                     <div className="block">
+                        <div className="emj">👵</div>
                         <div className="title">Дм маме</div>
                         <div className="date">неделю назад</div>
                     </div>
