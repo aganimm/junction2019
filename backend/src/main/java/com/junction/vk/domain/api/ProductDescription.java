@@ -6,17 +6,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductDescription {
-    private final String productId;
+    private final long productId;
     private final String description;
 
     @JsonCreator
     public ProductDescription(@JsonProperty("product_id") String productId,
             @JsonProperty("description") String description) {
-        this.productId = productId;
+        this.productId = Long.parseLong(productId);
         this.description = description;
     }
 
-    public String getProductId() {
+    public long getProductId() {
         return productId;
     }
 

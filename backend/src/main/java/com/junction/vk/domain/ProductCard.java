@@ -1,11 +1,17 @@
 package com.junction.vk.domain;
 
+import javax.annotation.Nullable;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductCard {
     private final long productId;
+    @Nullable
     private final Long categoryId;
     private final double price;
     private final long currencyId;
     private final String title;
+    @Nullable
     private final String description;
     private final double rating;
     private final String image;
@@ -26,6 +32,7 @@ public class ProductCard {
         return productId;
     }
 
+    @Nullable
     public Long getCategoryId() {
         return categoryId;
     }
@@ -42,6 +49,7 @@ public class ProductCard {
         return title;
     }
 
+    @Nullable
     public String getDescription() {
         return description;
     }

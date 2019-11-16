@@ -3,7 +3,7 @@ package com.junction.vk.util;
 import javax.servlet.http.HttpServletRequest;
 
 public final class RequestUtils {
-    public static final String SECURITY_TOKEN_HEADER = "";
+    public static final String SECURITY_TOKEN_HEADER = "Application-Token";
 
     private RequestUtils() {
     }
