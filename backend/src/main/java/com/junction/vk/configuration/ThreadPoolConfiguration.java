@@ -18,7 +18,7 @@ public class ThreadPoolConfiguration {
     public static final String TASK_SCHEDULER = "Task Scheduler";
 
     public static final String DEFAULT_EXECUTOR = "defaultExecutor";
-    public static final String FEED_EXECUTOR = "feedExecutor";
+    public static final String USER_EXECUTOR = "feedExecutor";
 
     public static final String DEFAULT_SCHEDULER = "defaultScheduler";
     public static final String FEED_SCHEDULER = "feedScheduler";
@@ -39,9 +39,9 @@ public class ThreadPoolConfiguration {
     }
 
     @Bean
-    @Qualifier(FEED_EXECUTOR)
+    @Qualifier(USER_EXECUTOR)
     public ExecutorService getBookUpdateExecutorService(@Value("${executor.feed.poolSize}") int poolSize) {
-        return createExecutorService(poolSize, FEED_EXECUTOR);
+        return createExecutorService(poolSize, USER_EXECUTOR);
     }
 
     @Bean
