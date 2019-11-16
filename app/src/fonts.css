@@ -6,67 +6,67 @@
 @font-face {
   font-family: "SF Display";
   font-weight: 900;
-  src: url("https://sf.abarba.me/SF-UI-Display-Black.otf");
+  src: url("/SF-UI-Display-Black.otf") format("opentype");
 }
 
 /** Bold */
 @font-face {
   font-family: "SF Display";
   font-weight: 700;
-  src: url("https://sf.abarba.me/SF-UI-Display-Bold.otf");
+  src: url("/SF-UI-Display-Bold.otf") format("opentype");
 }
 
 /** Heavy */
 @font-face {
   font-family: "SF Display";
   font-weight: 800;
-  src: url("https://sf.abarba.me/SF-UI-Display-Heavy.otf");
+  src: url("/SF-UI-Display-Heavy.otf") format("opentype");
 }
 
 /** Light */
 @font-face {
   font-family: "SF Display";
   font-weight: 200;
-  src: url("https://sf.abarba.me/SF-UI-Display-Light.otf");
+  src: url("/SF-UI-Display-Light.otf") format("opentype");
+  
 }
 
 /** Medium */
 @font-face {
   font-family: "SF Display";
   font-weight: 500;
-  src: url("https://sf.abarba.me/SF-UI-Display-Medium.otf");
+  src: url("${resourcesFolderName}/SF-UI-Display-Medium.otf") format("opentype");
 }
 
 /** Regular */
 @font-face {
   font-family: "SF Display";
   font-weight: 400;
-  src: url("https://sf.abarba.me/SF-UI-Display-Regular.otf");
+  src: url("/SF-UI-Display-Regular.otf") format("opentype");
 }
 
 /** Semibold */
 @font-face {
   font-family: "SF Display";
   font-weight: 600;
-  src: url("https://sf.abarba.me/SF-UI-Display-Semibold.otf");
+  src: url("/SF-UI-Display-Semibold.otf") format("opentype");
 }
 
 /** Thin */
 @font-face {
   font-family: "SF Display";
   font-weight: 300;
-  src: url("https://sf.abarba.me/SF-UI-Display-Thin.otf");
+  src: url("/SF-UI-Display-Thin.otf") format("opentype");
 }
 
 /** Ultralight */
 @font-face {
   font-family: "SF Display";
   font-weight: 100;
-  src: url("https://sf.abarba.me/SF-UI-Display-Ultralight.otf");
+  src: url("/SF-UI-Display-Ultralight.otf") format("opentype");
 }
 
 * {
-    font-family: "SF Display";
     font-weight: 700;
 }
 
