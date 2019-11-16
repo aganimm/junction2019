@@ -25,6 +25,13 @@ public class ProductListRepository extends AbstractDbRepository {
     private static final String SQL_DELETE_LIST = "update list "
             + "set is_deleted = true where list_id = :list_id";
 
+    private static final String SQL_INSERT_PRODUCT_TO_LIST = ""
+            + "insert into list_id_to_product (list_id, product_id) values (:list_id, :product_id)";
+
+    private static final String SQL_DELETE_PRODUCT_FROM_LIST = ""
+            + "update list_id_to_product set is_deleted = true "
+            + "where list_id = :list_id and product_id = :product_id";
+
     private static final String SQL_GET_SEQUENCE = "SELECT nextval('list_id')";
 
     public ProductListRepository(JdbcTemplate jdbcTemplate) {
@@ -90,11 +97,34 @@ public class ProductListRepository extends AbstractDbRepository {
     }
 
     public boolean removeProductFromList(long productId, long listId) {
+        try {
+            if (npjtTemplate.update(SQL_DELETE_PRODUCT_FROM_LIST, getNamedParameters(productId, listId)) > 0) {
+                return true;
+            }
+            logger.warn("Can't remove product: {} from list: {}.", productId, listId);
+        } catch (DataAccessException ex) {
+            logger.error("Invoke removeProductFromList({}, {}) with exception.", productId, listId);
+        }
         return false;
     }
 
     public boolean addProductToList(long productId, long listId) {
+        try {
+            if (npjtTemplate.update(SQL_INSERT_PRODUCT_TO_LIST, getNamedParameters(productId, listId)) > 0) {
+                return true;
+            }
+            logger.warn("Can't add product: {} to list: {}.", productId, listId);
+        } catch (DataAccessException ex) {
+            logger.error("Invoke addProductToList({}, {}) with exception.", productId, listId);
+        }
         return false;
+    }
+
+    private static MapSqlParameterSource getNamedParameters(long productId, long listId) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("product_id", productId);
+        namedParameters.addValue("list_id", listId);
+        return namedParameters;
     }
 
     private static RowMapper<ProductListItem> getProductListItemRowMapper() {
