@@ -1,0 +1,21 @@
+.button {
+width: 350px;
+height: 53px;
+background: #ff4647;
+border-radius: 12px;
+color:white;
+font-size: 18px;
+font-weight: 800;
+border: 0 !important;
+position: absolute;
+bottom: 8%;
+  }
+  .button:active {
+    transform: translateY(0.5px);
+    filter: saturate(125%);
+ }
+.btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
