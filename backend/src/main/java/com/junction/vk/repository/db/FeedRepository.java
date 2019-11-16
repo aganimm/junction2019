@@ -18,9 +18,11 @@ import com.junction.vk.repository.db.base.AbstractRepository;
 public class FeedRepository extends AbstractRepository {
     private static final Logger logger = LoggerFactory.getLogger(FeedRepository.class);
 
-    private static final String SQL_INSERT_FEED = "";
+    private static final String SQL_INSERT_FEED = "insert into feed (user_id, product_id, is_liked) "
+            + "values (:user_id, :product_id, :is_liked)";
 
-    private static final String SQL_SELECT_ALL_FEED = "";
+    private static final String SQL_SELECT_ALL_FEED = "select user_id, product_id, is_liked "
+            + "from feed";
 
     public FeedRepository(JdbcTemplate jdbcTemplate) {
         super(jdbcTemplate);
@@ -29,9 +31,9 @@ public class FeedRepository extends AbstractRepository {
     public boolean setFeed(long userId, long productId, boolean isLicked) {
         try {
             MapSqlParameterSource namedParameters = new MapSqlParameterSource();
-            namedParameters.addValue("userId", userId);
-            namedParameters.addValue("productId", productId);
-            namedParameters.addValue("isLicked", isLicked);
+            namedParameters.addValue("user_id", userId);
+            namedParameters.addValue("product_id", productId);
+            namedParameters.addValue("is_licked", isLicked);
 
             if (npjtTemplate.update(SQL_INSERT_FEED, namedParameters) > 0) {
                 return true;
@@ -56,9 +58,9 @@ public class FeedRepository extends AbstractRepository {
 
     private static RowMapper<Feed> getFeedRowMapper() {
         return (rs, i) -> new Feed(
-                rs.getLong(""),
-                rs.getLong(""),
-                rs.getBoolean("")
+                rs.getLong("user_id"),
+                rs.getLong("product_id"),
+                rs.getBoolean("is_liked")
         );
     }
 }
