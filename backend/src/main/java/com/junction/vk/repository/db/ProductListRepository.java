@@ -10,9 +10,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 import com.junction.vk.domain.ProductListItem;
+import com.junction.vk.repository.db.base.AbstractRepository;
 
 @Repository
-public class ProductListRepository extends AbstractDbRepository {
+public class ProductListRepository extends AbstractRepository {
     private static final Logger logger = LoggerFactory.getLogger(ProductListRepository.class);
 
     private static final String SQL_SELECT_LISTS_BY_USER_ID = "select list_id, title, list_type "

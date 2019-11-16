@@ -22,4 +22,11 @@ create table list_id_to_product
     product_id  numeric   not null,
     last_update TIMESTAMP not null default Now(),
     is_deleted  boolean   not null default false
-)
+);
+
+create table feed
+(
+    user_id    numeric not null,
+    product_id numeric not null,
+    is_liked   boolean not null
+);
