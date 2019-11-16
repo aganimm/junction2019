@@ -1,12 +1,12 @@
 package com.junction.vk.repository.db;
 
-import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.Collections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 import com.junction.vk.domain.ProductCard;
 import com.junction.vk.repository.db.base.AbstractRepository;
@@ -15,22 +15,20 @@ import com.junction.vk.repository.db.base.AbstractRepository;
 public class ProductRepository extends AbstractRepository {
     private static final Logger logger = LoggerFactory.getLogger(ProductRepository.class);
 
-    private static final String SQL_SELECT_PRODUCT_DESCRIPTION_BY_ID = "";
+    private static final String SQL_SELECT_PRODUCT_DESCRIPTION_BY_ID = ""
+            + "select product_id, price, title, rating, image from products";
 
     public ProductRepository(JdbcTemplate jdbcTemplate) {
         super(jdbcTemplate);
     }
 
-    @Nullable
-    public ProductCard findProductById(long productId) {
+    public Collection<ProductCard> findProducts() {
         try {
-            MapSqlParameterSource namedParameters = new MapSqlParameterSource("product_id", productId);
-            return npjtTemplate
-                    .queryForObject(SQL_SELECT_PRODUCT_DESCRIPTION_BY_ID, namedParameters, getProductDescriptionRowMapper());
+            return npjtTemplate.query(SQL_SELECT_PRODUCT_DESCRIPTION_BY_ID, getProductDescriptionRowMapper());
         } catch (DataAccessException ex) {
-            logger.error("Invoke findProductById({}) with exception.", productId);
+            logger.error("Invoke findProductById() with exception.", ex);
         }
-        return null;
+        return Collections.emptyList();
     }
 
     private static RowMapper<ProductCard> getProductDescriptionRowMapper() {
