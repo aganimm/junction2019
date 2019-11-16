@@ -59,6 +59,6 @@ public class UserController {
     public ResponseEntity<ApiResponse> updateUserProfile(@RequestBody UserProfileDto userProfileDto,
             HttpServletRequest request) {
         return ResponseEntity.ok(ApiResponse.of(userService.updateUserProfile(userProfileDto.getLookingFor(),
-                userProfileDto.getDescription(), RequestUtils.getMiniAppToken(request))));
+                userProfileDto.getDescription(), userProfileDto.getSex(), RequestUtils.getMiniAppToken(request))));
     }
 }

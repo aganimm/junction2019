@@ -54,13 +54,13 @@ public class UserService {
         return userRepository.findUserProfileByMiniAppToken(miniAppToken);
     }
 
-    public ApiStatus updateUserProfile(LookingForType lookingFor, String description, String miniAppToken) {
+    public ApiStatus updateUserProfile(LookingForType lookingFor, String description, String sex, String miniAppToken) {
         UserProfile profile = getUserProfileByToken(miniAppToken);
 
         if (profile == null) {
             return ApiStatus.INTERNAL_ERROR;
         }
-        return userRepository.updatePersonalInfo(profile.getUserId(), lookingFor, description) ? ApiStatus.USER_UPDATED
+        return userRepository.updatePersonalInfo(profile.getUserId(), lookingFor, description, sex) ? ApiStatus.USER_UPDATED
                 : ApiStatus.INTERNAL_ERROR;
     }
 }
