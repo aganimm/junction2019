@@ -40,15 +40,6 @@ public class ProductService {
         this.productListRepository = productListRepository;
     }
 
-    /**
-     * Большие продуктовые карточки
-     *
-     * @param count
-     * @param offset
-     * @param miniAppToken
-     *
-     * @return
-     */
     public Collection<ProductCard> getProductCards(long count, long offset, String miniAppToken) {
         UserProfile profile = getProfile(miniAppToken);
         if (profile == null) {
@@ -74,14 +65,6 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Список пользователя
-     *
-     * @param title
-     * @param miniAppToken
-     *
-     * @return
-     */
     public Long createProductList(String title, String miniAppToken) {
         UserProfile profile = getProfile(miniAppToken);
 
@@ -91,13 +74,6 @@ public class ProductService {
         return productListRepository.createProductList(title, CUSTOM, profile.getUserId());
     }
 
-    /**
-     * Получение всех списков пользователя
-     *
-     * @param miniAppToken
-     *
-     * @return
-     */
     public Collection<ProductListItem> getProductListItems(String miniAppToken) {
         UserProfile profile = getProfile(miniAppToken);
         if (profile == null) {
@@ -106,14 +82,6 @@ public class ProductService {
         return productListRepository.getProductListItemsByUserId(profile.getUserId());
     }
 
-    /**
-     * Удаление списка пользователя
-     *
-     * @param listId
-     * @param miniAppToken
-     *
-     * @return
-     */
     public boolean removeProductListById(long listId, String miniAppToken) {
         ProductListItem item = getProductListItems(miniAppToken)
                 .stream()
@@ -127,19 +95,10 @@ public class ProductService {
         return productListRepository.deleteProductList(listId);
     }
 
-    /**
-     * Удаление из списка
-     *
-     * @param productId
-     * @param listId
-     * @param miniAppToken
-     *
-     * @return
-     */
     public boolean removeProductFromList(long productId, long listId, String miniAppToken) {
         boolean isMatched = getProductCardsByListId(listId, miniAppToken).stream()
                 .anyMatch(shortCard -> shortCard.getProductId() == productId);
-        return isMatched ? productListRepository.removeProductFromList(productId, listId) : false;
+        return isMatched && productListRepository.removeProductFromList(productId, listId);
     }
 
     /**
@@ -152,6 +111,11 @@ public class ProductService {
      */
     public Collection<ShortProductCard> getProductCardsByListId(long listId, String miniAppToken) {
         return Collections.emptyList();
+    }
+
+
+    public boolean addProductToList(long productId, long listId, String miniAppToken) {
+        return false;
     }
 
     //TODO Need use spring security
@@ -167,9 +131,5 @@ public class ProductService {
         }
         logger.debug("Mini app token is empty.");
         return null;
-    }
-
-    public boolean addProductToList(long productId, long listId, String miniAppToken) {
-        return false;
     }
 }

@@ -15,11 +15,15 @@ import com.junction.vk.domain.ProductListItem;
 public class ProductListRepository extends AbstractDbRepository {
     private static final Logger logger = LoggerFactory.getLogger(ProductListRepository.class);
 
-    private static final String SQL_SELECT_LISTS_BY_USER_ID = "";
+    private static final String SQL_SELECT_LISTS_BY_USER_ID = "select list_id, title, list_type "
+            + "from list where user_id = :iser_id and is_deleted = false";
 
-    private static final String SQL_INSERT_LIST = "";
+    private static final String SQL_INSERT_LIST = "insert into list "
+            + "(list_id, user_id, title, list_type) "
+            + "values (:list_id, :user_id, :title, :list_type)";
 
-    private static final String SQL_DELETE_LIST = "";
+    private static final String SQL_DELETE_LIST = "update list "
+            + "set is_deleted = true where list_id = :list_id";
 
     private static final String SQL_GET_SEQUENCE = "SELECT nextval('list_id')";
 

@@ -35,7 +35,7 @@ public class ProductController {
 
     @GetMapping("/product")
     @CrossOrigin(origins = "*")
-    @ApiOperation(value = "Возвращает все карточки продуктов")
+    @ApiOperation(value = "Get all product cards")
     public ResponseEntity<Collection<ProductCard>> getProductCards(@RequestParam Long count, @RequestParam Long offset,
             HttpServletRequest request) {
         return ResponseEntity.ok(productService.getProductCards(count, offset, RequestUtils.getMiniAppToken(request)));
@@ -43,14 +43,14 @@ public class ProductController {
 
     @GetMapping("/product/list")
     @CrossOrigin(origins = "*")
-    @ApiOperation(value = "Возваращет все списки пользователя")
+    @ApiOperation(value = "Get all user lists")
     public ResponseEntity<Collection<ProductListItem>> getProductListItems(HttpServletRequest request) {
         return ResponseEntity.ok(productService.getProductListItems(RequestUtils.getMiniAppToken(request)));
     }
 
     @PostMapping("/product/list/add")
     @CrossOrigin(origins = "*")
-    @ApiOperation(value = "Добавляет пользователю новый список")
+    @ApiOperation(value = "Add new list for user")
     public ResponseEntity<? extends ApiResponse> createProductList(@RequestBody CustomProductListDto customProductListDto,
             HttpServletRequest request) {
         Long listId = productService.createProductList(customProductListDto.getTitle(),
@@ -62,7 +62,7 @@ public class ProductController {
 
     @PostMapping("/product/list/{listId}/remove")
     @CrossOrigin(origins = "*")
-    @ApiOperation("Удаляет список пользователя")
+    @ApiOperation("Delete product list by id")
     public ResponseEntity<ApiResponse> removeProductList(@PathVariable long listId, HttpServletRequest request) {
         boolean isRemoved = productService.removeProductListById(listId, RequestUtils.getMiniAppToken(request));
         return ResponseEntity.ok(isRemoved ? ApiResponse.of(ApiStatus.LIST_REMOVED) :
