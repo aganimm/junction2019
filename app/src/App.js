@@ -4,12 +4,12 @@ import View from '@vkontakte/vkui/dist/components/View/View';
 import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner';
 import '@vkontakte/vkui/dist/vkui.css';
 
-import Home from './panels/Home';
-import Persik from './panels/Persik';
+import Tutorial from './panels/Tutorial';
+import './fonts.css';
 
 const App = () => {
-	const [activePanel, setActivePanel] = useState('home');
-	const [fetchedUser, setUser] = useState(null);
+	const [activePanel, ] = useState('tutorial');
+	const [, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
 	useEffect(() => {
@@ -37,27 +37,9 @@ const App = () => {
 			});
 	}, []);
 
-	const parseQueryString = (string) => {
-        return string.slice(1).split('&')
-            .map((queryParam) => {
-                let kvp = queryParam.split('=');
-                return {key: kvp[0], value: kvp[1]}
-            })
-            .reduce((query, kvp) => {
-                query[kvp.key] = kvp.value;
-                return query
-            }, {})
-    };
-
-
-	const go = e => {
-		setActivePanel(e.currentTarget.dataset.to);
-	};
-
 	return (
 		<View activePanel={activePanel} popout={popout}>
-			<Home id='home' fetchedUser={fetchedUser} go={go} />
-			<Persik id='persik' go={go} />
+			<Tutorial id='tutorial' title='Alinder' />
 		</View>
 	);
 }
