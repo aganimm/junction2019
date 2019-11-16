@@ -16,6 +16,7 @@ import {
 import '../fonts.css';
 import './Favorites.css';
 import '../custom/Header.css';
+import Button from '../custom/button';
 
 import Icon36Cancel from '@vkontakte/icons/dist/36/cancel';
 import Icon28MarketOutline from '@vkontakte/icons/dist/28/market_outline';
@@ -61,6 +62,9 @@ const Favorites = () => {
                         <div className="date">неделю назад</div>
                     </div>
                 </div>
+                  <div>
+                      <Button />
+                  </div>
 			</Panel>
 			<Panel id='group'>
 				<PanelHeader>
