@@ -33,7 +33,7 @@ const Favorites = () => {
 				<div className="circle"></div>
                 <div className="blocks">
                     <div className="block active">
-                        <div className="title">Мои</div>
+                        <div className="title white">Мои</div>
                         <div className="date">3 дня назад</div>
                     </div>
                     <div className="block">

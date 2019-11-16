@@ -1,34 +1,14 @@
+import ApiService from './ApiService';
+
 export default class ProductService {
-  _apiBase = 'http://212.109.194.223:8090/api/product';
-
-  async getData (url) {
-    const res = await fetch(url);
-
-    if (!res.ok) {
-      throw new Error(`Code ${ res.code } for url ${ url }.`);
-    }
-
-    return await res.json();
-  };
-
-  async postData (url, data = {}) {
-    const res = fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-
-    return await res.json();
-  }
+  _apiProduct = ApiService._apiBase + '/product';
 
   /**
    * Массив списков пользователя
    * @returns {Promise<SpeechRecognitionResultList>}
    */
   async getProductLists () {
-    const res = await this.getData(`${ this._apiBase }/list`);
+    const res = await ApiService.getData(`${ this._apiProduct }/list`);
     return res.results;
   }
 
@@ -38,7 +18,7 @@ export default class ProductService {
    * @returns {Promise<SpeechRecognitionResultList>}
    */
   async getProductsByListId (listId) {
-    const res = await this.getData(`${ this._apiBase }/list/${ listId }`);
+    const res = await ApiService.getData(`${ this._apiProduct }/list/${ listId }`);
     return res.results;
   }
 
@@ -49,7 +29,7 @@ export default class ProductService {
    */
   async removeProductList (listId) {
     const res = await this.postData(
-      `${ this._apiBase }/list/${ listId }/remove`
+      `${ this._apiProduct }/list/${ listId }/remove`
     );
     return res.result;
   }
@@ -61,9 +41,10 @@ export default class ProductService {
    * @returns {Promise<void>}
    */
   async removeProductFromList (listId, productId) {
-    const res = await this.postData(
-      `${ this._apiBase }/list/${ listId }/product/${ productId }/remove`
+    const res = await ApiService.postData(
+      `${ this._apiProduct }/list/${ listId }/product/${ productId }/remove`
     );
+    return res.result;
   }
 
   /**
@@ -72,10 +53,11 @@ export default class ProductService {
    * @returns {Promise<void>}
    */
   async createProductList (list) {
-    const res = await this.postData(
-      `${ this._apiBase }/list/add`,
+    const res = await ApiService.postData(
+      `${ this._apiProduct }/list/add`,
       list
     );
+    return res.result;
   }
 
   /**
@@ -85,9 +67,10 @@ export default class ProductService {
    * @returns {Promise<void>}
    */
   async addProductToList (listId, productId) {
-    const res = await this.postData(
-      `${ this._apiBase }/list/${ listId }/add`,
+    const res = await ApiService.postData(
+      `${ this._apiProduct }/list/${ listId }/add`,
       { productId }
     );
+    return res.result;
   }
 }

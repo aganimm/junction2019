@@ -9,5 +9,6 @@ public enum  ApiStatus {
     PRODUCT_ADDED,
     PRODUCT_REMOVED,
 
-    INTERNAL_ERROR;
+    INTERNAL_ERROR,
+    ACCESS_DENIED
 }

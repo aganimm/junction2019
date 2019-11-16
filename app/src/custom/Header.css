@@ -12,13 +12,16 @@
     position: absolute !important;
     left: 15px;
 }
-
+.PanelHeader-content span {
+    color:white;
+}
 .circle {
-    width: 100vw;
+    width: 200vw;
     height: 100vw;
-    border-radius: 50%;
-    background: #87E8C2;
-    transform: translateY(-65%);
+    left: -50%;
+    border-radius: 100%;
+    background: linear-gradient(129deg, rgba(255,71,71,1) 0%, rgba(247,151,29,1) 100%);;
+    transform: translateY(-60%);
     position: absolute;
     z-index: -1;
 }
