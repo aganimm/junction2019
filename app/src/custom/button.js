@@ -7,7 +7,7 @@ const Button = (props) => {
     //const { title } = this.props;
 	return (
 		<div className='btn'>
-         <button className="button ">{props.title}</button>
+         <button className={props.pos}>{props.title}</button>
          
         </div>
     );

@@ -8,7 +8,7 @@ const Input = (props) => {
 	return (
         <div className="input">
 		 <label>
-    Name:
+    {props.title}:
     <input className ="inp"type="text" name="name" />
   </label>
         </div>

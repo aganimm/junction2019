@@ -1,4 +1,4 @@
-.button {
+.ab{
 width: 90%;
 height: 53px;
 background: #3D75F6;
@@ -10,6 +10,17 @@ border: 0 !important;
 position: absolute;
 bottom: 12%;
   }
+  .noab{
+    width: 90%;
+    height: 53px;
+    background: #3D75F6;
+    border-radius: 12px;
+    color:white;
+    font-size: 18px;
+    font-weight: 800;
+    border: 0 !important;
+    bottom: 12%;
+      }
   .button:active {
     transform: translateY(0.5px);
     filter: saturate(125%);
