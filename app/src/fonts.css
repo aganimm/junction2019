@@ -69,3 +69,10 @@
     font-family: "SF Display";
     font-weight: 700;
 }
+
+.TabbarItem--selected{
+  color: #3D75F6 !important;
+}
+.Panel__in{
+  color:#F6FAFD !important;
+}

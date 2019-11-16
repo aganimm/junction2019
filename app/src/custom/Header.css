@@ -20,7 +20,7 @@
     height: 100vw;
     left: -50%;
     border-radius: 100%;
-    background: linear-gradient(129deg, rgba(255,71,71,1) 49%, rgba(247,151,29,1) 100%);
+    background: linear-gradient(135deg, rgba(108,181,250,1) 0%, rgba(51,119,239,1) 100%);
     transform: translateY(-60%);
     position: absolute;
     z-index: -1;
