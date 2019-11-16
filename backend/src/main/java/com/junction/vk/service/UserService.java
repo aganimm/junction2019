@@ -1,5 +1,7 @@
 package com.junction.vk.service;
 
+import java.util.UUID;
+import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -34,5 +36,11 @@ public class UserService {
 
             return isCreated;
         }
+    }
+
+    @Nullable
+    public String getSecurityToken(long userId, String accessToken) {
+        //TODO Validation token
+        return UUID.randomUUID().toString();
     }
 }
