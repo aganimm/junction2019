@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.junction.vk.domain.ApiResponse;
-import com.junction.vk.domain.ApiStatus;
+import com.junction.vk.domain.response.ApiResponse;
+import com.junction.vk.domain.response.ApiStatus;
 import com.junction.vk.domain.dto.RegistrationDto;
 import com.junction.vk.service.UserService;
 
@@ -33,7 +33,7 @@ public class UserController {
                 registrationDto.getAccessToken());
 
         ApiResponse status = operationExecuted ? ApiResponse.of(ApiStatus.USER_CREATED) :
-                ApiResponse.of(ApiStatus.INTERNAL_ERROR, "Can't create or update user.");
+                ApiResponse.of(ApiStatus.INTERNAL_ERROR);
         return ResponseEntity.ok(status);
     }
 }
