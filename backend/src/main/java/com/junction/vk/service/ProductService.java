@@ -19,7 +19,6 @@ import com.junction.vk.domain.api.ProductWrapper;
 import com.junction.vk.repository.db.ProductListRepository;
 import com.junction.vk.repository.http.VkProductRepository;
 
-import static com.junction.vk.domain.ProductListItem.ProductListType.CUSTOM;
 import static com.junction.vk.domain.ProductListItem.ProductListType.DEFAULT;
 
 @Service
@@ -65,13 +64,13 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public Long createProductList(String title, String miniAppToken) {
+    public Long createProductList(String title, ProductListItem.ProductListType productListType, String miniAppToken) {
         UserProfile profile = getProfile(miniAppToken);
 
         if (profile == null) {
             return null;
         }
-        return productListRepository.createProductList(title, CUSTOM, profile.getUserId());
+        return productListRepository.createProductList(title, productListType, profile.getUserId());
     }
 
     public Collection<ProductListItem> getProductListItems(String miniAppToken) {

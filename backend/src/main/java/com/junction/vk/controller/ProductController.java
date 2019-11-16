@@ -53,7 +53,7 @@ public class ProductController {
     @ApiOperation(value = "Add new list for user")
     public ResponseEntity<? extends ApiResponse> createProductList(@RequestBody CustomProductListDto customProductListDto,
             HttpServletRequest request) {
-        Long listId = productService.createProductList(customProductListDto.getTitle(),
+        Long listId = productService.createProductList(customProductListDto.getTitle(), ProductListItem.ProductListType.CUSTOM,
                 RequestUtils.getMiniAppToken(request));
 
         return ResponseEntity.ok(listId == null ? ApiResponse.of(ApiStatus.INTERNAL_ERROR) :
