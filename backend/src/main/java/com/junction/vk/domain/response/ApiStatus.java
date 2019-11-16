@@ -6,6 +6,7 @@ public enum  ApiStatus {
     LIST_CREATED,
     LIST_REMOVED,
 
+    PRODUCT_ADDED,
     PRODUCT_REMOVED,
 
     INTERNAL_ERROR;

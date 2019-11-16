@@ -168,4 +168,8 @@ public class ProductService {
         logger.debug("Mini app token is empty.");
         return null;
     }
+
+    public boolean addProductToList(long productId, long listId, String miniAppToken) {
+        return false;
+    }
 }

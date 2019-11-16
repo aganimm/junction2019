@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.junction.vk.domain.ProductListItem;
 import com.junction.vk.domain.ShortProductCard;
+import com.junction.vk.domain.dto.ProductIdDto;
 import com.junction.vk.domain.response.ApiResponse;
 import com.junction.vk.domain.response.ApiResponseId;
 import com.junction.vk.domain.response.ApiStatus;
@@ -38,13 +39,14 @@ public class ProductController {
     }
 
     @GetMapping("/product/list")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Collection<ProductListItem>> getProductListItems(HttpServletRequest request) {
         return ResponseEntity.ok(productService.getProductListItems(RequestUtils.getMiniAppToken(request)));
     }
 
     @PostMapping("/product/list/add")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<?> createProductList(@RequestBody CustomProductListDto customProductListDto,
+    public ResponseEntity<? extends ApiResponse> createProductList(@RequestBody CustomProductListDto customProductListDto,
             HttpServletRequest request) {
         Long listId = productService.createProductList(customProductListDto.getTitle(),
                 RequestUtils.getMiniAppToken(request));
@@ -54,20 +56,33 @@ public class ProductController {
     }
 
     @PostMapping("/product/list/{listId}/remove")
-    public ResponseEntity<?> removeProductList(@PathVariable long listId, HttpServletRequest request) {
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<ApiResponse> removeProductList(@PathVariable long listId, HttpServletRequest request) {
         boolean isRemoved = productService.removeProductListById(listId, RequestUtils.getMiniAppToken(request));
         return ResponseEntity.ok(isRemoved ? ApiResponse.of(ApiStatus.LIST_REMOVED) :
                 ApiResponse.of(ApiStatus.INTERNAL_ERROR));
     }
 
     @GetMapping("/product/list/{listId}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Collection<ShortProductCard>> getProductCardsByListId(HttpServletRequest request,
             @PathVariable long listId) {
         return ResponseEntity.ok(productService.getProductCardsByListId(listId, RequestUtils.getMiniAppToken(request)));
     }
 
+    @PostMapping("/product/list/{listId}/add")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<ApiResponse> addProductToList(@RequestBody ProductIdDto productIdDto, @PathVariable long listId,
+            HttpServletRequest request) {
+        boolean isAdded = productService.addProductToList(productIdDto.getProductId(), listId, RequestUtils.getMiniAppToken(request));
+
+        return ResponseEntity.ok(isAdded ? ApiResponse.of(ApiStatus.PRODUCT_ADDED) :
+                ApiResponse.of(ApiStatus.INTERNAL_ERROR));
+    }
+
     @PostMapping("/product/list/{listId}/product/{productId}/remove")
-    public ResponseEntity<?> removeProductFromList(@PathVariable long productId, HttpServletRequest request,
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<ApiResponse> removeProductFromList(@PathVariable long productId, HttpServletRequest request,
             @PathVariable long listId) {
         boolean isRemoved = productService.removeProductFromList(productId, listId, RequestUtils.getMiniAppToken(request));
 
