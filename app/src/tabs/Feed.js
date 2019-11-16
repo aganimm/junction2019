@@ -26,9 +26,12 @@ const Feed = () => {
 		<View activePanel='main'>
 			<Panel id='main'>
 				<PanelHeader>
-					Лентаasd
+					Лента
 				</PanelHeader>
-				<Card image='//placehold.it/500x100' name='Xiaomi Mi Band 4' price='300' rate='3' />
+				<div className="circle"></div>
+                <div className="cards">
+				    <Card image='//placehold.it/500x100' name='Xiaomi Mi Band 4' price='300' rate='3' />
+                </div>
 			</Panel>
 		</View>
 	);

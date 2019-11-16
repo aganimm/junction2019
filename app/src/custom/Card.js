@@ -10,11 +10,27 @@ const Card = (props) => {
                 <img src={ props.image } alt='img' />
             </div>
             <div className='card_info'>
-                <h1>Название</h1>
-                <h2>Цена</h2>
+                <h1>Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4</h1>
+                <h2>300 ₽</h2>
                 <div className="card_rate">
-                    <div>
-                        10 users
+                    <div className="users">
+                        <div className="user_circles">
+                            <div className="user_circle">
+                                <img src="//placehold.it/50x50" alt="img" />
+                            </div>
+                            <div className="user_circle">
+                                <img src="//placehold.it/50x50" alt="img" />
+                            </div>
+                            <div className="user_circle">
+                                <img src="//placehold.it/50x50" alt="img" />
+                            </div>
+                            <div className="user_circle">
+                                <img src="//placehold.it/50x50" alt="img" />
+                            </div>
+                        </div>
+                        <div className="users_more">
+                            +10
+                        </div>
                     </div>
                     <div>
                         5 stars
