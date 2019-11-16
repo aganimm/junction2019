@@ -15,8 +15,8 @@ import {
 
 import '../fonts.css';
 import './Feed.css';
+import '../custom/Header.css';
 
-import Header from '../custom/Header';
 import Card from '../custom/Card';
 
 const Feed = () => {
@@ -25,11 +25,10 @@ const Feed = () => {
 	return (
 		<View activePanel='main'>
 			<Panel id='main'>
-				<Header title='Лента' />
+				<PanelHeader>
+					Лентаasd
+				</PanelHeader>
 				<Card image='//placehold.it/500x100' name='Xiaomi Mi Band 4' price='300' rate='3' />
-			</Panel>
-			<Panel id='total'>
-				olool
 			</Panel>
 		</View>
 	);

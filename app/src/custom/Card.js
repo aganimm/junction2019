@@ -10,7 +10,16 @@ const Card = (props) => {
                 <img src={ props.image } alt='img' />
             </div>
             <div className='card_info'>
-                info vfnnvnkdfjfdjfjfnfdkfdnfd
+                <h1>Название</h1>
+                <h2>Цена</h2>
+                <div className="card_rate">
+                    <div>
+                        10 users
+                    </div>
+                    <div>
+                        5 stars
+                    </div>
+                </div>
             </div>
         </div>
     );
