@@ -10,8 +10,8 @@ const Card = (props) => {
                 <img src={ props.image } alt='img' />
             </div>
             <div className='card_info'>
-                <h1>Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4Xiaomi Mi Band 4</h1>
-                <h2>300 ₽</h2>
+                <h1>{ props.name }</h1>
+                <h2>{ props.price } ₽</h2>
                 <div className="card_rate">
                     <div className="users">
                         <div className="user_circles">

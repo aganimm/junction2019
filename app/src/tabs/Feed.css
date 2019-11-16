@@ -1,0 +1,22 @@
+
+.buy {
+    background: #87E8C2;
+    border-radius: 22px;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 70vw;
+    border: 1px solid red;
+    margin: 0 auto;
+}
+.like {
+    color: #FC5E8D;
+}
