@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import com.junction.vk.domain.Feed;
-import com.junction.vk.repository.db.EventRepository;
+import com.junction.vk.repository.db.FeedRepository;
 
 import static com.junction.vk.configuration.ThreadPoolConfiguration.DEFAULT_SCHEDULER;
 
@@ -20,11 +20,11 @@ public class FeedCache {
     private static final Logger logger = LoggerFactory.getLogger(FeedCache.class);
 
     private final Map<Long, Collection<Feed>> feedCache = new ConcurrentHashMap<>();
-    private final EventRepository eventRepository;
+    private final FeedRepository feedRepository;
 
     public FeedCache(@Qualifier(DEFAULT_SCHEDULER) ScheduledExecutorService executorService,
-            EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
+            FeedRepository feedRepository) {
+        this.feedRepository = feedRepository;
         executorService.schedule(this::updateFeedCache, 30, TimeUnit.SECONDS);
     }
 
@@ -33,7 +33,7 @@ public class FeedCache {
     }
 
     private void updateFeedCache() {
-        feedCache.putAll(eventRepository.getUsersFeed());
+        feedCache.putAll(feedRepository.getUsersFeed());
         logger.debug("Fresh feed data: {}.", feedCache);
     }
 }

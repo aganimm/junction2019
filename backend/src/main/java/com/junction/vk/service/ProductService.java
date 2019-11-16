@@ -32,8 +32,8 @@ public class ProductService {
         return false;
     }
 
-    public ProductCard getNextProductCard(String miniAppToken) {
-        return null;
+    public Collection<ProductCard> getProductCards(String miniAppToken) {
+        return productCache.getProductCards();
     }
 
     public Long createProductList(String title, ProductListItem.ProductListType productListType, String miniAppToken) {

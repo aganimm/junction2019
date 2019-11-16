@@ -15,14 +15,14 @@ import com.junction.vk.domain.Feed;
 import com.junction.vk.repository.db.base.AbstractRepository;
 
 @Repository
-public class EventRepository extends AbstractRepository {
-    private static final Logger logger = LoggerFactory.getLogger(EventRepository.class);
+public class FeedRepository extends AbstractRepository {
+    private static final Logger logger = LoggerFactory.getLogger(FeedRepository.class);
 
     private static final String SQL_INSERT_FEED = "";
 
     private static final String SQL_SELECT_ALL_FEED = "";
 
-    public EventRepository(JdbcTemplate jdbcTemplate) {
+    public FeedRepository(JdbcTemplate jdbcTemplate) {
         super(jdbcTemplate);
     }
 
