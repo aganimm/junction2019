@@ -1,4 +1,6 @@
-
+.skip {
+    color: #000;
+}
 .buy {
     background: #87E8C2;
     border-radius: 22px;
@@ -35,7 +37,7 @@
     object-fit: cover;
 }
 .panel {
-    background:black;
+    background: #1F1F1F;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -44,4 +46,11 @@
     padding-top: 10px;
     border-top-left-radius: 26px;
     border-top-right-radius: 26px;
+}
+.description_title {
+    margin: 10px 0 5px;
+}
+.description {
+    font-family: "SF Display";
+    font-weight: 500;
 }
