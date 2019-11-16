@@ -33,12 +33,12 @@
     font-size: 20px;
     font-family: "SF Display";
     font-weight: 800;
-    margin: 0;
     padding: 0;
     text-overflow: ellipsis;
     max-width: 100%;
     white-space: nowrap;
     overflow: hidden;
+    margin: 0 0 10px;
 }
 .card_rate {
     display: flex;

@@ -20,7 +20,7 @@ import Feed from './tabs/Feed';
 import Favorites from './tabs/Favorites';
 
 const App = () => {
-	const [activeStory, setActiveStory] = useState('favorites');
+	const [activeStory, setActiveStory] = useState('feed');
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 

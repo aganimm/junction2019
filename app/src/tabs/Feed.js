@@ -49,11 +49,39 @@ const Feed = () => {
 				</div>
 			</Panel>
 			<Panel id='product'>
-				<PanelHeader>
-					Xiaomi Mi Band 4
-				</PanelHeader>
-				<div className="circle"></div>
-
+				<div className="bg_img">
+					<img src="//placehold.it/500x600" alt="img" />
+				</div>
+				<div className="panel">
+					<div className='card_info'>
+						<h1>Xiaomi Mi Beat 2</h1>
+						<h2>300 ₽</h2>
+						<div className="card_rate">
+							<div className="users">
+								<div className="user_circles">
+									<div className="user_circle">
+										<img src="//placehold.it/50x50" alt="img" />
+									</div>
+									<div className="user_circle">
+										<img src="//placehold.it/50x50" alt="img" />
+									</div>
+									<div className="user_circle">
+										<img src="//placehold.it/50x50" alt="img" />
+									</div>
+									<div className="user_circle">
+										<img src="//placehold.it/50x50" alt="img" />
+									</div>
+								</div>
+								<div className="users_more">
+									+10
+								</div>
+							</div>
+							<div>
+								5 stars
+							</div>
+						</div>
+					</div>
+				</div>
 			</Panel>
 		</View>
 	);
