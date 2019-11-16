@@ -1,4 +1,4 @@
-package com.junction.vk.domain.api;
+package com.junction.vk.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
