@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import com.junction.vk.cache.ProductCache;
@@ -135,6 +136,10 @@ public class ProductService {
     }
 
     public ApiResponse updateFeed(long productId, boolean licked, String miniAppToken) {
+        return null;
+    }
+
+    public ProductCard getProductCard(String miniAppToken) {
         return null;
     }
 }

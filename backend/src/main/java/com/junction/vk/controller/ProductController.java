@@ -37,9 +37,8 @@ public class ProductController {
     @GetMapping("/product")
     @CrossOrigin(origins = "*")
     @ApiOperation(value = "Get all product cards")
-    public ResponseEntity<Collection<ProductCard>> getProductCards(@RequestParam Long count, @RequestParam Long offset,
-            HttpServletRequest request) {
-        return ResponseEntity.ok(productService.getProductCards(count, offset, RequestUtils.getMiniAppToken(request)));
+    public ResponseEntity<ProductCard> getProductCards(HttpServletRequest request) {
+        return ResponseEntity.ok(productService.getProductCard(RequestUtils.getMiniAppToken(request))));
     }
 
     @PostMapping("/feed")
