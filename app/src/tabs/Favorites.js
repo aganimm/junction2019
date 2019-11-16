@@ -17,6 +17,7 @@ import '../fonts.css';
 import './Favorites.css';
 import '../custom/Header.css';
 import Button from '../custom/button';
+import Input from '../custom/input';
 
 import Icon36Cancel from '@vkontakte/icons/dist/36/cancel';
 import Icon28MarketOutline from '@vkontakte/icons/dist/28/market_outline';
@@ -63,22 +64,23 @@ const Favorites = () => {
                         <div className="title">Дм маме</div>
                         <div className="date">неделю назад</div>
                     </div>
-                    <div className="block">
-                        <div className="emj">👵</div>
-                        <div className="title">Дм маме</div>
-                        <div className="date">неделю назад</div>
-                    </div>
                 </div>
                   <div>
-                      <Button title={'Cоздать список'}/>
+                      <Button 
+                      onClick={() => { setActivePanel('addList') }}
+                      title={'Cоздать список'}/>
                   </div>
 			</Panel>
-			<Panel id='group'>
-				<PanelHeader>
-					Xiaomi Mi Band 4
+			<Panel id='addList'>
+                <PanelHeader>
+					Добавить
 				</PanelHeader>
-				<div className="circle"></div>
-
+				<div>
+                    <Input />
+                </div>
+                <div>
+                    <Button title="Создать" />
+                </div>
 			</Panel>
 		</View>
 	);

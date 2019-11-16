@@ -8,6 +8,7 @@ const Button = (props) => {
 	return (
 		<div className='btn'>
          <button className="button ">{props.title}</button>
+         
         </div>
     );
 };
