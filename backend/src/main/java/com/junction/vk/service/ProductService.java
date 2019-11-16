@@ -101,21 +101,15 @@ public class ProductService {
         return isMatched && productListRepository.removeProductFromList(productId, listId);
     }
 
-    /**
-     * Получение товаров в определенном списке
-     *
-     * @param listId
-     * @param miniAppToken
-     *
-     * @return
-     */
     public Collection<ShortProductCard> getProductCardsByListId(long listId, String miniAppToken) {
         return Collections.emptyList();
     }
 
 
     public boolean addProductToList(long productId, long listId, String miniAppToken) {
-        return false;
+        boolean isExist = getProductListItems(miniAppToken).stream().anyMatch(item -> item.getListId() == listId);
+
+        return isExist && productListRepository.addProductToList(productId, listId);
     }
 
     //TODO Need use spring security

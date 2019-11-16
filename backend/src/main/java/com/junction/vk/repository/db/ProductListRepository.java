@@ -89,14 +89,18 @@ public class ProductListRepository extends AbstractDbRepository {
         return false;
     }
 
+    public boolean removeProductFromList(long productId, long listId) {
+        return false;
+    }
+
+    public boolean addProductToList(long productId, long listId) {
+        return false;
+    }
+
     private static RowMapper<ProductListItem> getProductListItemRowMapper() {
         return (rs, i) -> new ProductListItem(
                 rs.getLong("list_id"),
                 rs.getString("title"),
                 ProductListItem.ProductListType.getProductListItemType(rs.getString("list_type")));
-    }
-
-    public boolean removeProductFromList(long productId, long listId) {
-        return false;
     }
 }
