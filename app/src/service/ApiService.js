@@ -1,5 +1,5 @@
 export default class ApiService {
-  static _apiBase = 'http://212.109.194.223:8090/api';
+  static _apiBase = 'https://zirodev.com/api';
 
   static async getData (url) {
     const res = await fetch(url);
@@ -12,8 +12,9 @@ export default class ApiService {
   };
 
   static async postData (url, data = {}) {
-    const res = fetch(url, {
+    const res = await fetch(url, {
       method: 'POST',
+      mode: 'cors',
       headers: {
         'Content-Type': 'application/json'
       },
