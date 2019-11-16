@@ -26,7 +26,7 @@ const App = () => {
 			if (type === 'VKWebAppAccessTokenReceived') {
 				const { access_token: accessToken } = data;
 				UserCache._it.setAccessToken(accessToken);
-				UserCache._it.getMiniAppToken();
+				UserCache._it.refreshMiniAppToken();
 			}
 		});
 		async function fetchData() {
@@ -36,7 +36,7 @@ const App = () => {
 
 			const { id } = user;
 			UserCache._it.setUserId(id);
-			UserCache._it.getMiniAppToken();
+			UserCache._it.refreshMiniAppToken();
 
 			setPopout(null);
 		}
