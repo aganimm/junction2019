@@ -12,7 +12,7 @@ import Favorites from './tabs/Favorites';
 import UserCache from './UserCache';
 
 const App = () => {
-	const [activeStory, setActiveStory] = useState('favorites');
+	const [activeStory, setActiveStory] = useState('feed');
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
@@ -26,7 +26,7 @@ const App = () => {
 			if (type === 'VKWebAppAccessTokenReceived') {
 				const { access_token: accessToken } = data;
 				UserCache._it.setAccessToken(accessToken);
-				UserCache._it.getMiniAppToken();
+				UserCache._it.refreshMiniAppToken();
 			}
 		});
 		async function fetchData() {
@@ -36,7 +36,7 @@ const App = () => {
 
 			const { id } = user;
 			UserCache._it.setUserId(id);
-			UserCache._it.getMiniAppToken();
+			UserCache._it.refreshMiniAppToken();
 
 			setPopout(null);
 		}

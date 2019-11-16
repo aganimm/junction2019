@@ -24,7 +24,7 @@ import Icon36Like from '@vkontakte/icons/dist/36/like';
 import Card from '../custom/Card';
 
 const Feed = () => {
-	const [activePanel, setActivePanel] = useState('product');
+	const [activePanel, setActivePanel] = useState('main');
 
 	return (
 		<View activePanel={ activePanel }>
@@ -34,13 +34,13 @@ const Feed = () => {
 				</PanelHeader>
 				<div className="circle"></div>
                 <div className="cards">
-				    <Card image='//placehold.it/500x100' name='Xiaomi Mi Band 4' price='300' rate='3'/>
+				    <Card image='//placehold.it/500x100' name='Xiaomi Mi Band 4' price='300' rate='3' onClick={() => { setActivePanel('product') }} />
                 </div>
 				<div className="buttons">
 					<div className="skip">
 						<Icon36Cancel />
 					</div>
-					<div className="buy" onClick={() => { setActivePanel('product') }}>
+					<div className="buy" >
 						<Icon28MarketOutline />
 					</div>
 					<div className="like">
@@ -49,11 +49,43 @@ const Feed = () => {
 				</div>
 			</Panel>
 			<Panel id='product'>
-				<PanelHeader>
-					Xiaomi Mi Band 4
-				</PanelHeader>
-				<div className="circle"></div>
-
+				<div className="bg_img">
+					<img src="//placehold.it/500x600" alt="img" />
+				</div>
+				<div className="panel">
+					<div className='card_info'>
+						<h1>Xiaomi Mi Beat 2</h1>
+						<h2>300 ₽</h2>
+						<div className="card_rate">
+							<div className="users">
+								<div className="user_circles">
+									<div className="user_circle">
+										<img src="//placehold.it/50x50" alt="img" />
+									</div>
+									<div className="user_circle">
+										<img src="//placehold.it/50x50" alt="img" />
+									</div>
+									<div className="user_circle">
+										<img src="//placehold.it/50x50" alt="img" />
+									</div>
+									<div className="user_circle">
+										<img src="//placehold.it/50x50" alt="img" />
+									</div>
+								</div>
+								<div className="users_more">
+									+10
+								</div>
+							</div>
+							<div>
+								5 stars
+							</div>
+						</div>
+						<p className="description_title">Описание</p>
+						<div className="description">
+							ОЛло ло рло рло рло рл ор лор л рл  о р оор орорро ло орлол ор орлоол орро ор ор ор ро роро ор ролро ро ролро орро орролр ро о ол оолоро ол о ол о ллолло  лоорол лоол олол  ороорлл
+						</div>
+					</div>
+				</div>
 			</Panel>
 		</View>
 	);

@@ -16,7 +16,7 @@ public class ProductListRepository extends AbstractDbRepository {
     private static final Logger logger = LoggerFactory.getLogger(ProductListRepository.class);
 
     private static final String SQL_SELECT_LISTS_BY_USER_ID = "select list_id, title, list_type "
-            + "from list where user_id = :iser_id and is_deleted = false";
+            + "from list where user_id = :user_id and is_deleted = false";
 
     private static final String SQL_INSERT_LIST = "insert into list "
             + "(list_id, user_id, title, list_type) "
@@ -55,7 +55,7 @@ public class ProductListRepository extends AbstractDbRepository {
             MapSqlParameterSource namedParameters = new MapSqlParameterSource("user_id", userId);
             return npjtTemplate.query(SQL_SELECT_LISTS_BY_USER_ID, namedParameters, getProductListItemRowMapper());
         } catch (DataAccessException ex) {
-            logger.error("Invoke getProductListItemsByUserId({}) with exception.", userId);
+            logger.error("Invoke getProductListItemsByUserId({}) with exception.", userId, ex);
         }
         return Collections.emptyList();
     }
@@ -70,7 +70,7 @@ public class ProductListRepository extends AbstractDbRepository {
             MapSqlParameterSource namedParameters = new MapSqlParameterSource();
             namedParameters.addValue("list_id", nextId);
             namedParameters.addValue("title", title);
-            namedParameters.addValue("list_type", listType);
+            namedParameters.addValue("list_type", listType.getName());
             namedParameters.addValue("user_id", userId);
 
 
@@ -105,7 +105,7 @@ public class ProductListRepository extends AbstractDbRepository {
             }
             logger.warn("Can't remove product: {} from list: {}.", productId, listId);
         } catch (DataAccessException ex) {
-            logger.error("Invoke removeProductFromList({}, {}) with exception.", productId, listId);
+            logger.error("Invoke removeProductFromList({}, {}) with exception.", productId, listId, ex);
         }
         return false;
     }

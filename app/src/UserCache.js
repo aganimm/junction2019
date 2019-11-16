@@ -1,4 +1,5 @@
 import UserService from './service/UserService';
+import ProductService from './service/ProductService';
 
 export default class UserCache {
   static _it = new UserCache();
@@ -27,15 +28,15 @@ export default class UserCache {
   };
 
   setMiniAppToken = (miniAppToken) => {
-    console.log('Set mini app token: {}.', miniAppToken);
+    console.log('Set mini app token: ', miniAppToken);
     this._miniAppToken = miniAppToken;
   };
 
-  get miniAppToken () {
-    return this._miniAppToken;
-  }
-
   getMiniAppToken = () => {
+    return this._miniAppToken;
+  };
+
+  refreshMiniAppToken = () => {
     const { _userId, _accessToken } = this;
     if (_userId && _accessToken) {
       this._userService.registration({ userId: _userId, accessToken: _accessToken })
@@ -44,6 +45,10 @@ export default class UserCache {
 
           if (status === 'USER_CREATED') {
             this.setMiniAppToken(miniAppToken);
+
+            ProductService._it.getProductLists().then(result => {
+              console.log(result);
+            })
           } else {
             console.log('Internal error: ', _userId, _accessToken);
           }

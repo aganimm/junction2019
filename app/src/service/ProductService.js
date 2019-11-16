@@ -1,6 +1,8 @@
 import ApiService from './ApiService';
 
 export default class ProductService {
+  static _it = new ProductService();
+
   _apiProduct = ApiService._apiBase + '/product';
 
   /**
@@ -8,8 +10,7 @@ export default class ProductService {
    * @returns {Promise<SpeechRecognitionResultList>}
    */
   async getProductLists () {
-    const res = await ApiService.getData(`${ this._apiProduct }/list`);
-    return res.results;
+    return await ApiService.getData(`${ this._apiProduct }/list`);
   }
 
   /**

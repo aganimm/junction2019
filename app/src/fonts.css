@@ -76,3 +76,7 @@
 .Panel__in{
   color:#F6FAFD !important;
 }
+
+body {
+  overflow: hidden !important;
+}
