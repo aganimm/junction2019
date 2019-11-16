@@ -9,7 +9,10 @@ import {
 	View,
 	Panel,
 	PanelHeader,
-	Group,
+    Group,
+    Input,
+    FormLayout,
+    FormLayoutGroup,
 	CellButton
 } from '@vkontakte/vkui';
 
@@ -17,14 +20,14 @@ import '../fonts.css';
 import './Favorites.css';
 import '../custom/Header.css';
 import Button from '../custom/button';
-import Input from '../custom/input';
+//import Input from '../custom/input';
 
 import Icon36Cancel from '@vkontakte/icons/dist/36/cancel';
 import Icon28MarketOutline from '@vkontakte/icons/dist/28/market_outline';
 import Icon36Like from '@vkontakte/icons/dist/36/like';
 
 const Favorites = () => {
-	const [activePanel, setActivePanel] = useState('main');
+	const [activePanel, setActivePanel] = useState('addList');
 
 	return (
 		<View activePanel={ activePanel }>
@@ -74,12 +77,17 @@ const Favorites = () => {
 			</Panel>
 			<Panel  id='addList'>
                 <PanelHeader>
-					Создание списка
+					<div>Создание списка</div>
 				</PanelHeader>
-				<div className="form">
-                    <Input title="Название списка" />
-                    <Button pos="noab" title="Создать" />
-                </div>
+                <FormLayout>
+      <FormLayoutGroup top="Название списка">
+        <Input type="text" defaultValue="Петров" />
+        <Button
+                      pos="noab" 
+                      onClick={() => { setActivePanel('addList') }}
+                      title={'Cоздать'}/>
+      </FormLayoutGroup>
+    </FormLayout>
 			</Panel>
 		</View>
 	);
