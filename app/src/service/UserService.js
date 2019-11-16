@@ -6,6 +6,7 @@ export default class UserService {
   async registration(userData) {
     return await ApiService.postData(
       `${ this._apiUser }/registration`,
+      null,
       userData
     );
   }

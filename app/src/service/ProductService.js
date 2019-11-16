@@ -1,4 +1,6 @@
 import ApiService from './ApiService';
+import UserService from './UserService';
+import UserCache from '../UserCache';
 
 export default class ProductService {
   static _it = new ProductService();
@@ -10,7 +12,7 @@ export default class ProductService {
    * @returns {Promise<SpeechRecognitionResultList>}
    */
   async getProductLists () {
-    return await ApiService.getData(`${ this._apiProduct }/list`);
+    return await ApiService.getData(`${ this._apiProduct }/list`, UserCache._it.getMiniAppToken());
   }
 
   /**

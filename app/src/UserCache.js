@@ -1,5 +1,4 @@
 import UserService from './service/UserService';
-import ProductService from './service/ProductService';
 
 export default class UserCache {
   static _it = new UserCache();
@@ -45,10 +44,6 @@ export default class UserCache {
 
           if (status === 'USER_CREATED') {
             this.setMiniAppToken(miniAppToken);
-
-            ProductService._it.getProductLists().then(result => {
-              console.log(result);
-            })
           } else {
             console.log('Internal error: ', _userId, _accessToken);
           }

@@ -1,12 +1,10 @@
-import UserCache from '../UserCache';
-
 export default class ApiService {
   static _apiBase = 'https://zirodev.com/api';
 
-  static async getData (url) {
+  static async getData (url, token) {
     const res = await fetch(url, {
       headers: {
-        'Application-Token': UserCache._it.getMiniAppToken()
+        'Application-Token': token
       }
     });
 
@@ -17,14 +15,17 @@ export default class ApiService {
     return await res.json();
   };
 
-  static async postData (url, data = {}) {
+  static async postData (url, token = '', data = {}) {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    if (token) {
+      headers['Application-Token'] = token;
+    }
     const res = await fetch(url, {
       method: 'POST',
       mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        'Application-Token': UserCache._it.getMiniAppToken()
-      },
+      headers,
       body: JSON.stringify(data)
     });
 
