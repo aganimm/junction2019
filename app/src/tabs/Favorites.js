@@ -13,9 +13,13 @@ import {
     Input,
     FormLayout,
     FormLayoutGroup,
-	CellButton
+    CellButton,
+    Cell,
+    Avatar,
+    List,
+  
 } from '@vkontakte/vkui';
-
+import Icon16Cancel from '@vkontakte/icons/dist/16/cancel';
 import '../fonts.css';
 import './Favorites.css';
 import '../custom/Header.css';
@@ -81,13 +85,22 @@ const Favorites = () => {
 				</PanelHeader>
                 <FormLayout>
       <FormLayoutGroup top="Название списка">
-        <Input type="text" defaultValue="Петров" />
+        <Input type="text" defaultValue="" />
         <Button
                       pos="noab" 
-                      onClick={() => { setActivePanel('addList') }}
+                      onClick={() => { setActivePanel('main') }}
                       title={'Cоздать'}/>
       </FormLayoutGroup>
     </FormLayout>
+			</Panel>
+            <Panel  id='List'>
+            <PanelHeader>
+					<div>Др.маме</div>
+				</PanelHeader>
+        <List>
+          <Cell before={<Avatar type="image" src="https://pp.userapi.com/c841025/v841025503/617f7/bkN1Def0s14.jpg" />} description="300 ₽" asideContent={<Icon16Cancel fill="var(--accent)"/>}>Ножницы</Cell>
+          <Cell before={<Avatar type="image" src="https://pp.userapi.com/c845220/v845220642/7cacc/XzhH5b7FSKY.jpg" />} description="228 ₽" asideContent={<Icon16Cancel fill="var(--accent)"/>}>Памада</Cell>
+        </List>
 			</Panel>
 		</View>
 	);
