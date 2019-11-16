@@ -70,7 +70,7 @@ const Favorites = () => {
                     </div>
                 </div>
                   <div>
-                      <Button />
+                      <Button title={'Cоздать список'}/>
                   </div>
 			</Panel>
 			<Panel id='group'>
