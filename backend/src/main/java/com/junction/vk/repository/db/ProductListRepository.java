@@ -32,6 +32,9 @@ public class ProductListRepository extends AbstractDbRepository {
             + "update list_id_to_product set is_deleted = true "
             + "where list_id = :list_id and product_id = :product_id";
 
+    private static final String SQL_SELECT_PRODUCT_IDS_BY_LIST_ID = ""
+            + "select product_id from list_id_to_product where list_id = :list_id";
+
     private static final String SQL_GET_SEQUENCE = "SELECT nextval('list_id')";
 
     public ProductListRepository(JdbcTemplate jdbcTemplate) {
@@ -83,8 +86,7 @@ public class ProductListRepository extends AbstractDbRepository {
 
     public boolean deleteProductList(long listId) {
         try {
-            MapSqlParameterSource namedParameters = new MapSqlParameterSource();
-            namedParameters.addValue("list_id", listId);
+            MapSqlParameterSource namedParameters = new MapSqlParameterSource("list_id", listId);
 
             if (npjtTemplate.update(SQL_DELETE_LIST, namedParameters) > 0) {
                 return true;
@@ -106,6 +108,16 @@ public class ProductListRepository extends AbstractDbRepository {
             logger.error("Invoke removeProductFromList({}, {}) with exception.", productId, listId);
         }
         return false;
+    }
+
+    public Collection<Long> getProductsIdsByListId(long listId) {
+        try {
+            MapSqlParameterSource namedParameters = new MapSqlParameterSource("list_id", listId);
+            return npjtTemplate.query(SQL_SELECT_PRODUCT_IDS_BY_LIST_ID, namedParameters, (rs, i) -> rs.getLong("product_id"));
+        } catch (DataAccessException ex) {
+            logger.error("Invoke getProductsIdsByListId({}) with exception.", listId, ex);
+        }
+        return Collections.emptyList();
     }
 
     public boolean addProductToList(long productId, long listId) {

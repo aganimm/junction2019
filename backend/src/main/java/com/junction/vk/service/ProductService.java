@@ -102,7 +102,14 @@ public class ProductService {
     }
 
     public Collection<ShortProductCard> getProductCardsByListId(long listId, String miniAppToken) {
-        return Collections.emptyList();
+        boolean isMatched = getProductListItems(miniAppToken).stream()
+                .anyMatch(shortCard -> shortCard.getListId() == listId);
+
+        return !isMatched ? Collections.emptyList() : productListRepository
+                .getProductsIdsByListId(listId)
+                .stream()
+                .map(productId -> new ShortProductCard(productId, "", 0, ""))
+                .collect(Collectors.toList());
     }
 
 
