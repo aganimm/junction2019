@@ -8,14 +8,16 @@ public class UserProfile {
     private final String accessToken;
     private final LookingForType lookingFor;
     private final String description;
+    private final String sex;
 
     public UserProfile(long userId, String miniAppToken, String accessToken,
-            LookingForType lookingFor, String description) {
+            LookingForType lookingFor, String description, String sex) {
         this.userId = userId;
         this.miniAppToken = miniAppToken;
         this.accessToken = accessToken;
         this.lookingFor = lookingFor;
         this.description = description == null ? "" : description;
+        this.sex = sex;
     }
 
     public long getUserId() {
@@ -40,6 +42,10 @@ public class UserProfile {
         return description;
     }
 
+    public String getSex() {
+        return sex;
+    }
+
     @Override
     public String toString() {
         return "UserProfile{" +
@@ -48,6 +54,7 @@ public class UserProfile {
                 ", accessToken='" + accessToken + '\'' +
                 ", lookingFor=" + lookingFor +
                 ", description='" + description + '\'' +
+                ", sex='" + sex + '\'' +
                 '}';
     }
 }

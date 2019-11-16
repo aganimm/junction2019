@@ -17,7 +17,7 @@ public class UserRepository extends AbstractRepository {
     private static final Logger logger = LoggerFactory.getLogger(UserRepository.class);
 
     private static final String SQL_SELECT_USER = "select user_id, mini_app_token, access_token, looking_for,"
-            + "description from user_profile ";
+            + "description, sex from user_profile ";
 
     private static final String SQL_SELECT_USER_BY_ID = SQL_SELECT_USER
             + "where user_id = :user_id";
@@ -33,7 +33,7 @@ public class UserRepository extends AbstractRepository {
             + "where user_id = :user_id";
 
     private static final String SQL_UPDATE_PERSONAL_INFO = "update user_profile "
-            + "set looking_for = :looking_for, description = :description "
+            + "set looking_for = :looking_for, description = :description, sex = :sex "
             + "where user_id = :user_id";
 
     public UserRepository(JdbcTemplate fipJdbcTemplate) {
@@ -54,7 +54,7 @@ public class UserRepository extends AbstractRepository {
     public boolean updateUser(long userId, String miniAppToken, String accessToken) {
         try {
             if (npjtTemplate.update(SQL_UPDATE_USER_BY_ID, getNamedParameters(userId, miniAppToken, accessToken,
-                    null, null)) > 0) {
+                    null, null, null)) > 0) {
                 return true;
             }
             logger.warn("Can't update user with id: {}.", userId);
@@ -64,10 +64,10 @@ public class UserRepository extends AbstractRepository {
         return false;
     }
 
-    public boolean updatePersonalInfo(long userId, LookingForType lookingFor, String description) {
+    public boolean updatePersonalInfo(long userId, LookingForType lookingFor, String description, String sex) {
         try {
             if (npjtTemplate.update(SQL_UPDATE_PERSONAL_INFO, getNamedParameters(userId, null, null,
-                    lookingFor, description)) > 0) {
+                    lookingFor, description, sex)) > 0) {
                 return true;
             }
             logger.warn("Can't update user personal info with id: {}.", userId);
@@ -80,7 +80,7 @@ public class UserRepository extends AbstractRepository {
     public boolean createUser(long userId, String miniAppToken, String accessToken) {
         try {
             if (npjtTemplate.update(SQL_INSERT_USER, getNamedParameters(userId, miniAppToken, accessToken,
-                    null, null)) > 0) {
+                    null, null, null)) > 0) {
                 return true;
             }
             logger.warn("Can't create user with id: {}.", userId);
@@ -102,7 +102,8 @@ public class UserRepository extends AbstractRepository {
     }
 
     private static MapSqlParameterSource getNamedParameters(long userId, @Nullable String miniAppToken,
-            @Nullable String accessToken, @Nullable LookingForType lookingFor, @Nullable String description) {
+            @Nullable String accessToken, @Nullable LookingForType lookingFor, @Nullable String description,
+            @Nullable String sex) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("user_id", userId);
         if (miniAppToken != null) {
@@ -117,6 +118,9 @@ public class UserRepository extends AbstractRepository {
         if (description != null) {
             namedParameters.addValue("description", description);
         }
+        if (sex != null) {
+            namedParameters.addValue("sex", sex);
+        }
         return namedParameters;
     }
 
@@ -126,7 +130,8 @@ public class UserRepository extends AbstractRepository {
                 rs.getString("mini_app_token"),
                 rs.getString("access_token"),
                 LookingForType.findTypeByName(rs.getString("looking_for")),
-                rs.getString("description")
+                rs.getString("description"),
+                rs.getString("sex")
         );
     }
 }
