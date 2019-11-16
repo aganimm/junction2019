@@ -31,7 +31,6 @@ public class ThreadPoolConfiguration {
         return threadPoolTaskScheduler;
     }
 
-
     @Bean
     @Qualifier(DEFAULT_EXECUTOR)
     public ExecutorService getDefaultExecutorService(@Value("${executor.default.poolSize}") int poolSize) {

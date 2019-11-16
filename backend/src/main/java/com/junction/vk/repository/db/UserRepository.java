@@ -10,9 +10,10 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 import com.junction.vk.domain.LookingForType;
 import com.junction.vk.domain.UserProfile;
+import com.junction.vk.repository.db.base.AbstractRepository;
 
 @Repository
-public class UserRepository extends AbstractDbRepository {
+public class UserRepository extends AbstractRepository {
     private static final Logger logger = LoggerFactory.getLogger(UserRepository.class);
 
     private static final String SQL_SELECT_USER = "select user_id, mini_app_token, access_token, looking_for,"

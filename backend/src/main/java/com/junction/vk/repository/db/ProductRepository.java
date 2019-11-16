@@ -9,9 +9,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 import com.junction.vk.domain.ProductCard;
+import com.junction.vk.repository.db.base.AbstractRepository;
 
 @Repository
-public class ProductRepository extends AbstractDbRepository {
+public class ProductRepository extends AbstractRepository {
     private static final Logger logger = LoggerFactory.getLogger(ProductRepository.class);
 
     private static final String SQL_SELECT_PRODUCT_DESCRIPTION_BY_ID = "";
