@@ -3,9 +3,9 @@ package com.junction.vk.domain;
 import java.util.stream.Stream;
 
 public enum LookingForType {
-    MAN("MAN"),
-    WOMAN("WOMAN"),
-    NOT_KNOWN("NOT_KNOWN");
+    MAN("2"),
+    WOMAN("1"),
+    NOT_KNOWN("0");
 
     private final String name;
 

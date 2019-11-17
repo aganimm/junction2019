@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.junction.vk.domain.LookingForType;
 import com.junction.vk.domain.UserProfile;
 import com.junction.vk.domain.dto.RegistrationDto;
 import com.junction.vk.domain.dto.UserProfileDto;
@@ -59,7 +60,8 @@ public class UserController {
     public ResponseEntity<ApiResponse> updateUserProfile(@RequestBody UserProfileDto userProfileDto,
             HttpServletRequest request) {
         return ResponseEntity.ok(ApiResponse.of(userService.updateUserProfile(userProfileDto.getLookingFor(),
-                userProfileDto.getDescription(), userProfileDto.getSex() == null ? "NOT_KNOWN" : userProfileDto.getSex(),
+                userProfileDto.getDescription(), userProfileDto.getSex() == null ? LookingForType.NOT_KNOWN.getName()
+                        : userProfileDto.getSex(),
                 RequestUtils.getMiniAppToken(request))));
     }
 }
