@@ -1,21 +1,38 @@
-import React from "react";
+import React from 'react';
 
 const cardStyles = {
-  background: "whitesmoke",
+  background: 'whitesmoke',
   borderRadius: 3,
-  width: "250px",
-  height: "250px",
-  cursor: "pointer",
-  userSelect: "none",
-  position: "absolute",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  width: '250px',
+  height: '250px',
+  cursor: 'pointer',
+  userSelect: 'none',
+  position: 'absolute',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   top: 0
 };
 
-const Card = ({ zIndex = 0, children }) => (
-  <div style={{ ...cardStyles, zIndex }}>{children}</div>
-);
+export default class Card extends React.Component {
+  render () {
+    const { product, zIndex } = this.props;
 
-export default Card;
+    console.log(product);
+
+    if (!product) {
+      return <div style={ { ...cardStyles, zIndex } }>No more cards</div>
+    }
+
+    const {
+      image,
+      price,
+      productId,
+      rating,
+      title
+    } = product;
+
+    return <div style={ { ...cardStyles, zIndex } }>{price + ' ' +  title}</div>
+  }
+
+}

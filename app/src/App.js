@@ -72,6 +72,7 @@ export default class App extends React.Component {
     });
 
     ProductService._it.getProducts().then(data => {
+      console.log(data);
       this.setState({
         cards: data
       })
@@ -103,7 +104,7 @@ export default class App extends React.Component {
 
       const { id, first_name, last_name, photo_200 } = user;
       UserCache._it.setUserId(id);
-      UserCache._it.refreshMiniAppToken(() => this.onLoadProfile());
+      UserCache._it.refreshMiniAppToken();
       UserCache._it._firstName = first_name;
       UserCache._it._lastName = last_name;
       UserCache._it._photo = photo_200;
@@ -179,28 +180,31 @@ export default class App extends React.Component {
           </Group>
           <Group>
             <FormLayout>
-              <Textarea top="О себе" value={ description } onChange={ event => this.setState({
-                user: {
-                  description: event.target.value
-                }
-              }) }/>
+              <Textarea top="О себе" value={ description }
+                        onChange={ event => this.setState({
+                          user: {
+                            description: event.target.value
+                          }
+                        }) }/>
+
+              <Select
+                top="Я ищу"
+                placeholder="Выберите пол партнера"
+                bottom={ lookingFor ? '' : 'Выберите пол' }
+                value={ lookingFor }
+                onChange={ event => this.setState({
+                  user: {
+                    lookingFor: event.target.value
+                  }
+                }) }
+                name="purpose"
+              >
+                <option value="0">Не имеет значения</option>
+                <option value="1">Женский</option>
+                <option value="2">Мужской</option>
+              </Select>
             </FormLayout>
-            <Select
-              top="Я ищу"
-              placeholder="Выберите пол партнера"
-              bottom={ lookingFor ? '' : 'Выберите пол' }
-              value={ lookingFor }
-              onChange={ event => this.setState({
-                user: {
-                  lookingFor: event.target.value
-                }
-              }) }
-              name="purpose"
-            >
-              <option value="0">Не имеет значения</option>
-              <option value="1">Женский</option>
-              <option value="2">Мужской</option>
-            </Select>
+
           </Group>
 
           <div style={ buttonStyle } onClick={ this.userProfileUpdate }>
@@ -217,14 +221,14 @@ export default class App extends React.Component {
                 { cards.length > 0 && (
                   <>
                     <Swipeable onAfterSwipe={ this.remove }>
-                      <Card>{ cards[0] }</Card>
+                      <Card product={ cards[0]}/>
                     </Swipeable>
                     { cards.length > 1 &&
-                    <Card zIndex={ -1 }>{ cards[1] }</Card> }
+                    <Card zIndex={ -1 } product={cards[1]} /> }
                   </>
                 ) }
                 { cards.length <= 1 &&
-                <Card zIndex={ -2 }>No more cards</Card> }
+                <Card zIndex={ -2 } /> }
               </div>
             </div>
           </div>
