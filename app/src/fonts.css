@@ -71,6 +71,34 @@
     -ms-user-select: none;
     user-select: none;
 }
+.Select{
+    width: 95%;
+    margin: auto;
+}
+.Cell__children{
+    color:#909499;
+}
+.FormField__border{
+    background-color:#1F1F1F;
+}
+.Textarea textarea {
+    color:white;
+
+}
+.Group{
+    background: black;
+}
+.Button--ios {
+    border-radius: 10px;
+    color: white;
+    background: #473FFF;
+}
+.FormLayout {
+    position: relative;
+}
+.Group--ios::before, .Group--ios::after{
+    background: #d7d8d900;
+}
 .Tabbar--ios.Tabbar--shadow::before{
     background: #d7d8d900;
 }
