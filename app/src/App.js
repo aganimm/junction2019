@@ -25,7 +25,7 @@ import Swipeable from 'react-swipy';
 import Card from './component/Card';
 import UserCache from './service/UserCache';
 import UserService from './service/UserService';
-
+import './fonts.css';
 const wrapperStyles = { position: 'relative', width: '250px', height: '250px' };
 
 const appStyles = {
