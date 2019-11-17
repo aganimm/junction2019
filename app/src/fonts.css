@@ -71,3 +71,16 @@
     -ms-user-select: none;
     user-select: none;
 }
+.Tabbar--ios.Tabbar--shadow::before{
+    background: #d7d8d900;
+}
+.Panel__in{
+    background: black !important;
+}
+.Tabbar{
+    background: #1F1F1F;
+    border-radius: 18px 18px 0 0;
+}
+.TabbarItem{
+    color: #CFCFCF;
+}
