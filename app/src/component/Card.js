@@ -34,7 +34,7 @@ export default class Card extends React.Component {
       title
     } = product;
 
-    return <OldCard />
+    return <OldCard product = {product} />
   }
 
 }

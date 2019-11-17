@@ -220,8 +220,6 @@ export default class App extends React.Component {
                     <Swipeable onAfterSwipe={ this.remove }>
                       <Card product={ cards[0]}/>
                     </Swipeable>
-                    { cards.length > 1 &&
-                    <Card zIndex={ -1 } product={cards[1]} /> }
                   </>
                 ) }
                 { cards.length <= 1 &&
