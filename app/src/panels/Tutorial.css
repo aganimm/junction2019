@@ -113,16 +113,16 @@ body {
     margin-left: -415%;
     transition: 0.5s;
 }
+.images.slide_null{
+    margin-left: -370%;
+}
 
-.images.slide_1 {
-    margin-left: -415%;
-}
 .images.slide_2 {
-    margin-left: -291%;
+    margin-left: -370%;
 }
-.images.slide_3 {
-    margin-left: -155%;
+.images.slide_1 {
+    margin-left: -242%;
 }
-.images.slide_3 {
-    margin-left: -33%;
+.images.slide_0 {
+    margin-left: -123%;
 }

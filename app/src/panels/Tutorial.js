@@ -15,7 +15,7 @@ import img_3 from '../img/3.png';
 import img_4 from '../img/4.png';
 
 const Tutorial = ({ id, title, onClick }) => {
-  const [slideNum, setSlideNum] = useState(null);
+  const [slideNum,setSlideNum] = useState(null);
 
   return (
     <Panel id={ id }>
@@ -33,7 +33,7 @@ const Tutorial = ({ id, title, onClick }) => {
         <h1>{ title }</h1>
       </div>
       <div className="slider_block">
-        <div className="images slide_2">
+        <div className={`images slide_${slideNum}`}>
           <div className="image img_1">
             <img src={ img_1 } alt="img"/>
           </div>
