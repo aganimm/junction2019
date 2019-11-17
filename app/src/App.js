@@ -1,29 +1,30 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React from 'react';
 import connect from '@vkontakte/vk-connect';
 import '@vkontakte/vkui/dist/vkui.css';
 import {
+  Avatar,
+  Button,
+  Cell,
   Epic,
+  FormLayout,
+  Group,
   Panel,
   PanelHeader,
-  ScreenSpinner,
+  Select,
   Tabbar,
   TabbarItem,
-  View,
-  Cell,
-  Group,
-  Avatar,
-  FormLayout, FormLayoutGroup, Input,
-  Textarea, Select, Button, Div
+  Textarea,
+  View
 } from '@vkontakte/vkui';
 
 import Icon28Newsfeed from '@vkontakte/icons/dist/28/newsfeed';
 import Icon28Search from '@vkontakte/icons/dist/28/search';
 import Icon28Messages from '@vkontakte/icons/dist/28/message';
-import Icon28Notifications from '@vkontakte/icons/dist/28/notification';
-import Icon28More from '@vkontakte/icons/dist/28/more';
 import Tutorial from './panels/Tutorial';
 import Swipeable from 'react-swipy';
 import Card from './component/Card';
+import UserCache from './service/UserCache';
+import UserService from './service/UserService';
 
 const wrapperStyles = { position: 'relative', width: '250px', height: '250px' };
 
@@ -45,15 +46,40 @@ const buttonStyle = {
 };
 
 export default class App extends React.Component {
+  state = {
+    cards: ['First', 'Second', 'Third'],
+    activeStory: 'tutorial',
+    currentScreen: 'tutorial',
+    purpose: '2'
+  };
+
   constructor (props) {
     super(props);
 
-    this.state = {
-      cards: ['First', 'Second', 'Third'],
-      activeStory: 'tutorial',
-      currentScreen: 'tutorial',
-      purpose: '2'
-    };
+    connect.subscribe(({ detail: { type, data }}) => {
+      if (type === 'VKWebAppUpdateConfig') {
+        const schemeAttribute = document.createAttribute('scheme');
+        schemeAttribute.value = 'client_light';//data.scheme ? data.scheme : 'client_light';
+        document.body.attributes.setNamedItem(schemeAttribute);
+      }
+      if (type === 'VKWebAppAccessTokenReceived') {
+        const { access_token: accessToken } = data;
+        UserCache._it.setAccessToken(accessToken);
+        UserCache._it.refreshMiniAppToken();
+      }
+    });
+    async function fetchData() {
+      connect.send("VKWebAppGetAuthToken", {"app_id": 7211486, "scope": "friends,status"});
+      const user = await connect.sendPromise('VKWebAppGetUserInfo');
+
+      const { id, first_name, last_name, photo_200 } = user;
+      UserCache._it.setUserId(id);
+      UserCache._it.refreshMiniAppToken();
+      UserCache._it._firstName = first_name;
+      UserCache._it._lastName = last_name;
+      UserCache._it._photo = photo_200;
+    }
+    fetchData();
     this.onStoryChange = this.onStoryChange.bind(this);
   }
 
@@ -103,17 +129,17 @@ export default class App extends React.Component {
     }>
       <View id="feed" activePanel="feed">
         <Panel id="feed">
-          <PanelHeader>Профиль</PanelHeader>
+          <PanelHeader>Profile</PanelHeader>
 
           <Group>
             <Cell
-              photo="https://pp.userapi.com/c841034/v841034569/3b8c1/pt3sOw_qhfg.jpg"
+              photo={UserCache._it._photo}
               before={ <Avatar
-                src="https://pp.userapi.com/c841034/v841034569/3b8c1/pt3sOw_qhfg.jpg"
+                src={UserCache._it._photo}
                 size={ 60 }/> }
               size="l"
             >
-              Артур Стамбульцян
+              {UserCache._it._firstName + ' ' + UserCache._it._lastName}
             </Cell>
           </Group>
           <Group>

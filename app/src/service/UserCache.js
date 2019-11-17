@@ -7,6 +7,9 @@ export default class UserCache {
   _accessToken;
   _userId;
   _miniAppToken;
+  _photo;
+  _firstName;
+  _lastName;
 
   setAccessToken = (token) => {
     console.log('Set access token: ', token);
@@ -35,7 +38,7 @@ export default class UserCache {
     return this._miniAppToken;
   };
 
-  refreshMiniAppToken = () => {
+  refreshMiniAppToken = (callback) => {
     const { _userId, _accessToken } = this;
     if (_userId && _accessToken) {
       this._userService.registration(
@@ -43,12 +46,17 @@ export default class UserCache {
         .then(result => {
           const { status, miniAppToken } = result;
 
-          if (status === 'USER_CREATED') {
+          if (status === 'USER_CREATED' || status === 'USER_UPDATED') {
             this.setMiniAppToken(miniAppToken);
+            if (callback) {
+              callback();
+            }
           } else {
             console.log('Internal error: ', _userId, _accessToken);
           }
         })
+    } else {
+      console.log("Can't refresh token!");
     }
   }
 }

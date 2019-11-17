@@ -1,6 +1,9 @@
 import ApiService from './ApiService';
+import UserCache from './UserCache';
 
 export default class UserService {
+  static _it = new UserService();
+
   _apiUser = ApiService._apiBase + '/user';
 
   async registration(userData) {
@@ -12,10 +15,12 @@ export default class UserService {
   }
 
   async getProfile() {
-    return await ApiService.getData(
+    const res = await ApiService.getData(
       `${ this._apiUser }/profile`,
       UserCache._it.getMiniAppToken()
     );
+
+    return res.json()
   }
 
   async updateProfile(profile) {
