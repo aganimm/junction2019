@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import connect from '@vkontakte/vk-connect';
 import '@vkontakte/vkui/dist/vkui.css';
 import {
@@ -8,7 +8,12 @@ import {
   ScreenSpinner,
   Tabbar,
   TabbarItem,
-  View
+  View,
+  Cell,
+  Group,
+  Avatar,
+  FormLayout, FormLayoutGroup, Input,
+  Textarea, Select, Button, Div
 } from '@vkontakte/vkui';
 
 import Icon28Newsfeed from '@vkontakte/icons/dist/28/newsfeed';
@@ -33,6 +38,12 @@ const appStyles = {
   overflow: 'hidden'
 };
 
+const buttonStyle = {
+  position: 'absolute',
+  bottom: '8vh',
+  width: '100%'
+};
+
 export default class App extends React.Component {
   constructor (props) {
     super(props);
@@ -40,7 +51,8 @@ export default class App extends React.Component {
     this.state = {
       cards: ['First', 'Second', 'Third'],
       activeStory: 'tutorial',
-      currentScreen: 'tutorial'
+      currentScreen: 'tutorial',
+      purpose: '2'
     };
     this.onStoryChange = this.onStoryChange.bind(this);
   }
@@ -64,7 +76,7 @@ export default class App extends React.Component {
     this.setState(({ cards }) => ({ cards: cards.slice(1, cards.length) }));
 
   render () {
-    const { cards } = this.state;
+    const { cards, purpose } = this.state;
 
     const main = <Epic activeStory={ this.state.activeStory } tabbar={
       <Tabbar>
@@ -92,23 +104,59 @@ export default class App extends React.Component {
       <View id="feed" activePanel="feed">
         <Panel id="feed">
           <PanelHeader>Профиль</PanelHeader>
+
+          <Group>
+            <Cell
+              photo="https://pp.userapi.com/c841034/v841034569/3b8c1/pt3sOw_qhfg.jpg"
+              before={ <Avatar
+                src="https://pp.userapi.com/c841034/v841034569/3b8c1/pt3sOw_qhfg.jpg"
+                size={ 60 }/> }
+              size="l"
+            >
+              Артур Стамбульцян
+            </Cell>
+          </Group>
+          <Group>
+            <FormLayout>
+              <Textarea top="О себе"/>
+            </FormLayout>
+            <Select
+              top="Я ищу"
+              placeholder="Выберите пол партнера"
+              status={purpose ? 'valid' : 'error'}
+              bottom={purpose ? '' : 'Выберите пол'}
+              onChange={this.onChange}
+              value={purpose}
+              name="purpose"
+            >
+              <option value="0">Мужской</option>
+              <option value="1">Женский</option>
+              <option value="2">Не имеет значения</option>
+            </Select>
+          </Group>
+
+          <div style={ buttonStyle}>
+            <Button size="xl" level="secondary" >Extra large</Button>
+          </div>
         </Panel>
       </View>
       <View id="discover" activePanel="discover">
         <Panel id="discover">
           <PanelHeader>Пары</PanelHeader>
-          <div className={ appStyles }>
-            <div className={ appStyles }>
+          <div style={ appStyles }>
+            <div style={ appStyles }>
+              <div style={ wrapperStyles }>
               { cards.length > 0 && (
-                <div style={ wrapperStyles }>
+                <>
                   <Swipeable onAfterSwipe={ this.remove }>
                     <Card>{ cards[0] }</Card>
                   </Swipeable>
                   { cards.length > 1 &&
                   <Card zIndex={ -1 }>{ cards[1] }</Card> }
-                </div>
+                </>
               ) }
               { cards.length <= 1 && <Card zIndex={ -2 }>No more cards</Card> }
+              </div>
             </div>
           </div>
         </Panel>
