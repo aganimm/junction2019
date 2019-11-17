@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiOperation;
 
 import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,8 @@ import com.junction.vk.util.RequestUtils;
 @RestController
 @RequestMapping("/api")
 public class ProductController {
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+
     public final ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -39,7 +43,8 @@ public class ProductController {
     @CrossOrigin(origins = "*")
     @ApiOperation(value = "Set feed for product id")
     public ResponseEntity<ApiResponse> updateFeed(@RequestBody FeedDto feedDto, HttpServletRequest request) {
-        boolean isUpdated = productService.updateFeed(feedDto.getProductId(), feedDto.isLicked(),
+        logger.debug("Invoke updateFeed: {}.", feedDto);
+        boolean isUpdated = productService.updateFeed(feedDto.getProductId(), feedDto.getFeed(),
                 RequestUtils.getMiniAppToken(request));
         return ResponseEntity.ok(ApiResponse.of(isUpdated ? ApiStatus.USER_CREATED : ApiStatus.INTERNAL_ERROR));
     }
@@ -47,7 +52,7 @@ public class ProductController {
     @GetMapping("/product/list")
     @CrossOrigin(origins = "*")
     @ApiOperation(value = "Get all user lists")
-    public ResponseEntity<Collection<ProductListItem>> getProductListItems(HttpServletRequest request) {
-        return ResponseEntity.ok(productService.getProductListItems(RequestUtils.getMiniAppToken(request)));
+    public ResponseEntity<Collection<ProductCard>> getProductListItems(HttpServletRequest request) {
+        return ResponseEntity.ok(productService.getProductCardsInCart(RequestUtils.getMiniAppToken(request)));
     }
 }

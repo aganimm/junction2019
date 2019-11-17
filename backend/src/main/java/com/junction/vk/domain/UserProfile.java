@@ -17,7 +17,7 @@ public class UserProfile {
         this.accessToken = accessToken;
         this.lookingFor = lookingFor;
         this.description = description == null ? "" : description;
-        this.sex = sex;
+        this.sex = sex == null ? "0" : sex;
     }
 
     public long getUserId() {
@@ -34,8 +34,8 @@ public class UserProfile {
         return accessToken;
     }
 
-    public LookingForType getLookingFor() {
-        return lookingFor;
+    public String getLookingFor() {
+        return lookingFor.getName();
     }
 
     public String getDescription() {

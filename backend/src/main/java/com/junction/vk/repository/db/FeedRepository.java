@@ -12,35 +12,36 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 import com.junction.vk.domain.Feed;
+import com.junction.vk.domain.FeedStatus;
 import com.junction.vk.repository.db.base.AbstractRepository;
 
 @Repository
 public class FeedRepository extends AbstractRepository {
     private static final Logger logger = LoggerFactory.getLogger(FeedRepository.class);
 
-    private static final String SQL_INSERT_FEED = "insert into feed (user_id, product_id, is_liked) "
-            + "values (:user_id, :product_id, :is_liked)";
+    private static final String SQL_INSERT_FEED = "insert into feed (user_id, product_id, feed_status) "
+            + "values (:user_id, :product_id, :feed_status)";
 
-    private static final String SQL_SELECT_ALL_FEED = "select user_id, product_id, is_liked "
+    private static final String SQL_SELECT_ALL_FEED = "select user_id, product_id, feed_status "
             + "from feed";
 
     public FeedRepository(JdbcTemplate jdbcTemplate) {
         super(jdbcTemplate);
     }
 
-    public boolean setFeed(long userId, long productId, boolean isLicked) {
+    public boolean setFeed(long userId, long productId, FeedStatus feed) {
         try {
             MapSqlParameterSource namedParameters = new MapSqlParameterSource();
             namedParameters.addValue("user_id", userId);
             namedParameters.addValue("product_id", productId);
-            namedParameters.addValue("is_licked", isLicked);
+            namedParameters.addValue("feed_status", feed.getName());
 
             if (npjtTemplate.update(SQL_INSERT_FEED, namedParameters) > 0) {
                 return true;
             }
             logger.error("Can't insert feed data, user id {}.", userId);
         } catch (DataAccessException ex) {
-            logger.error("Invoke setFeed({}, {}, {}) with exception.", userId, productId, isLicked);
+            logger.error("Invoke setFeed({}, {}, {}) with exception.", userId, productId, feed.getName(), ex);
         }
         return false;
     }
@@ -60,7 +61,7 @@ public class FeedRepository extends AbstractRepository {
         return (rs, i) -> new Feed(
                 rs.getLong("user_id"),
                 rs.getLong("product_id"),
-                rs.getBoolean("is_liked")
+                FeedStatus.findFeedStatusByName(rs.getString("feed_status"))
         );
     }
 }

@@ -1,8 +1,11 @@
 package com.junction.vk.controller;
 
+import io.swagger.annotations.ApiOperation;
+
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +36,7 @@ public class UserController {
 
     @PostMapping("/registration")
     @CrossOrigin(origins = "*")
+    @ApiOperation(value = "Registration new user")
     public ResponseEntity<? extends ApiResponse> newUserRegistration(@RequestBody RegistrationDto registrationDto) {
         logger.info("Invoke newUserRegistration({}).", registrationDto);
 
@@ -52,11 +56,19 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<UserProfile> getUserProfile(HttpServletRequest request) {
-        return ResponseEntity.ok(userService.getUserProfileByToken(RequestUtils.getMiniAppToken(request)));
+    @CrossOrigin(origins = "*")
+    @ApiOperation(value = "Get personal profile")
+    public ResponseEntity<?> getUserProfile(HttpServletRequest request) {
+        UserProfile profile = userService.getUserProfileByToken(RequestUtils.getMiniAppToken(request));
+        if (profile == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        return ResponseEntity.ok(profile);
     }
 
     @PostMapping("/profile")
+    @CrossOrigin(origins = "*")
+    @ApiOperation(value = "Update personal profile")
     public ResponseEntity<ApiResponse> updateUserProfile(@RequestBody UserProfileDto userProfileDto,
             HttpServletRequest request) {
         return ResponseEntity.ok(ApiResponse.of(userService.updateUserProfile(userProfileDto.getLookingFor(),
