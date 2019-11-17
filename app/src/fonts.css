@@ -71,6 +71,9 @@
     -ms-user-select: none;
     user-select: none;
 }
+.Select:not(.Select--multiline) .Select__title {
+    color: #909499;
+}
 .Select{
     width: 95%;
     margin: auto;
@@ -91,6 +94,8 @@
 .Button--ios {
     border-radius: 10px;
     color: white;
+    width: 95%;
+    margin: auto;
     background: #473FFF;
 }
 .FormLayout {
