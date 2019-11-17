@@ -1,4 +1,6 @@
 import React from 'react';
+import OldCard from './cd';
+
 
 const cardStyles = {
   background: 'whitesmoke',
@@ -32,7 +34,7 @@ export default class Card extends React.Component {
       title
     } = product;
 
-    return <div style={ { ...cardStyles, zIndex } }>{price + ' ' +  title}</div>
+    return <OldCard />
   }
 
 }
