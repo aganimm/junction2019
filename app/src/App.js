@@ -146,20 +146,17 @@ export default class App extends React.Component {
           onClick={ this.onStoryChange }
           selected={ this.state.activeStory === 'feed' }
           data-story="feed"
-          text="Новости"
 
         ><Icon28Newsfeed/></TabbarItem>
         <TabbarItem
           onClick={ this.onStoryChange }
           selected={ this.state.activeStory === 'discover' }
           data-story="discover"
-          text="Поиск"
         ><Icon28Search/></TabbarItem>
         <TabbarItem
           onClick={ this.onStoryChange }
           selected={ this.state.activeStory === 'messages' }
           data-story="messages"
-          text="Сообщения"
         ><Icon28Messages/></TabbarItem>
       </Tabbar>
     }>
