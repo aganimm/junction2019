@@ -55,6 +55,9 @@ export default class UserCache {
             console.log('Internal error: ', _userId, _accessToken);
           }
         })
+        .catch(e =>
+          console.log(e)
+        );
     } else {
       console.log("Can't refresh token!");
     }

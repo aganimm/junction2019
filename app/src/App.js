@@ -177,7 +177,7 @@ export default class App extends React.Component {
           </Group>
           <Group>
             <FormLayout>
-              <Textarea top="О себе" value={ description }
+              <Textarea top="About me" value={ description }
                         onChange={ event => this.setState({
                           user: {
                             description: event.target.value
@@ -185,9 +185,9 @@ export default class App extends React.Component {
                         }) }/>
 
               <Select
-                top="Я ищу"
-                placeholder="Выберите пол партнера"
-                bottom={ lookingFor ? '' : 'Выберите пол' }
+                top="I'm looking for"
+                placeholder="Type"
+                bottom={ lookingFor ? '' : 'Select the gender' }
                 value={ lookingFor }
                 onChange={ event => this.setState({
                   user: {
@@ -196,22 +196,22 @@ export default class App extends React.Component {
                 }) }
                 name="purpose"
               >
-                <option value="0">Не имеет значения</option>
-                <option value="1">Женский</option>
-                <option value="2">Мужской</option>
+                <option value="0">-/-</option>
+                <option value="1">Woman</option>
+                <option value="2">Man</option>
               </Select>
             </FormLayout>
 
           </Group>
 
           <div style={ buttonStyle } onClick={ this.userProfileUpdate }>
-            <Button size="xl" level="secondary">Extra large</Button>
+            <Button size="xl" level="secondary">Update profile</Button>
           </div>
         </Panel>
       </View>
       <View id="discover" activePanel="discover">
         <Panel id="discover">
-          <PanelHeader>Пары</PanelHeader>
+          <PanelHeader>Feed</PanelHeader>
           <div style={ appStyles }>
             <div style={ appStyles }>
               <div style={ wrapperStyles }>
@@ -233,7 +233,7 @@ export default class App extends React.Component {
       </View>
       <View id="messages" activePanel="messages">
         <Panel id="messages">
-          <PanelHeader>Избранное</PanelHeader>
+          <PanelHeader>Selected</PanelHeader>
         </Panel>
       </View>
     </Epic>;

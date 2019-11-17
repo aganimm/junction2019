@@ -1,5 +1,5 @@
 export default class ApiService {
-  static _apiBase = 'http://localhost:8090/api';
+  static _apiBase = 'https://zirodev.com/api';
 
   static async getData (url, token) {
     const res = await fetch(url, {
