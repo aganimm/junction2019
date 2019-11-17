@@ -154,7 +154,13 @@ export default class App extends React.Component {
           data-story="discover"
         ><Icon28Search/></TabbarItem>
         <TabbarItem
-          onClick={ this.onStoryChange }
+          onClick={ (event) => {this.onStoryChange(event);
+            ProductService._it.getProducts().then(data => {
+              console.log(data);
+              this.setState({
+                cards: data
+              })
+            })}}
           selected={ this.state.activeStory === 'messages' }
           data-story="messages"
         ><Icon28Messages/></TabbarItem>
