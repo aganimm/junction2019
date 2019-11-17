@@ -26,6 +26,8 @@ import Card from './component/Card';
 import UserCache from './service/UserCache';
 import UserService from './service/UserService';
 import './fonts.css';
+import ProductService from './service/ProductService';
+
 const wrapperStyles = { position: 'relative', width: '250px', height: '250px' };
 
 const appStyles = {
@@ -47,16 +49,40 @@ const buttonStyle = {
 
 export default class App extends React.Component {
   state = {
-    cards: ['First', 'Second', 'Third'],
+    cards: [],
     activeStory: 'tutorial',
     currentScreen: 'tutorial',
-    purpose: '2'
+
+    user: {
+      lookingFor: '0',
+      description: ''
+    }
+  };
+
+  onLoadProfile = () => {
+    UserService._it.getProfile().then(data => {
+      console.log(data);
+      const { lookingFor, description } = data;
+      this.setState({
+        user: {
+          lookingFor,
+          description
+        }
+      })
+    });
+
+    ProductService._it.getProducts().then(data => {
+      console.log(data);
+      this.setState({
+        cards: data
+      })
+    })
   };
 
   constructor (props) {
     super(props);
 
-    connect.subscribe(({ detail: { type, data }}) => {
+    connect.subscribe(({ detail: { type, data } }) => {
       if (type === 'VKWebAppUpdateConfig') {
         const schemeAttribute = document.createAttribute('scheme');
         schemeAttribute.value = 'client_light';//data.scheme ? data.scheme : 'client_light';
@@ -65,11 +91,15 @@ export default class App extends React.Component {
       if (type === 'VKWebAppAccessTokenReceived') {
         const { access_token: accessToken } = data;
         UserCache._it.setAccessToken(accessToken);
-        UserCache._it.refreshMiniAppToken();
+        UserCache._it.refreshMiniAppToken(() => this.onLoadProfile());
       }
     });
-    async function fetchData() {
-      connect.send("VKWebAppGetAuthToken", {"app_id": 7211486, "scope": "friends,status"});
+
+    async function fetchData () {
+      connect.send(
+        'VKWebAppGetAuthToken',
+        { 'app_id': 7211486, 'scope': 'friends,status' }
+      );
       const user = await connect.sendPromise('VKWebAppGetUserInfo');
 
       const { id, first_name, last_name, photo_200 } = user;
@@ -79,6 +109,7 @@ export default class App extends React.Component {
       UserCache._it._lastName = last_name;
       UserCache._it._photo = photo_200;
     }
+
     fetchData();
     this.onStoryChange = this.onStoryChange.bind(this);
   }
@@ -98,11 +129,16 @@ export default class App extends React.Component {
     })
   }
 
+  userProfileUpdate = () => {
+    const { user: { description, lookingFor } } = this.state;
+    console.log(description, lookingFor);
+  }
+
   remove = () =>
     this.setState(({ cards }) => ({ cards: cards.slice(1, cards.length) }));
 
   render () {
-    const { cards, purpose } = this.state;
+    const { cards, user: { description, lookingFor } } = this.state;
 
     const main = <Epic activeStory={ this.state.activeStory } tabbar={
       <Tabbar>
@@ -133,36 +169,46 @@ export default class App extends React.Component {
 
           <Group>
             <Cell
-              photo={UserCache._it._photo}
+              photo={ UserCache._it._photo }
               before={ <Avatar
-                src={UserCache._it._photo}
+                src={ UserCache._it._photo }
                 size={ 60 }/> }
               size="l"
             >
-              {UserCache._it._firstName + ' ' + UserCache._it._lastName}
+              { UserCache._it._firstName + ' ' + UserCache._it._lastName }
             </Cell>
           </Group>
           <Group>
             <FormLayout>
-              <Textarea top="О себе"/>
+              <Textarea top="О себе" value={ description }
+                        onChange={ event => this.setState({
+                          user: {
+                            description: event.target.value
+                          }
+                        }) }/>
+
+              <Select
+                top="Я ищу"
+                placeholder="Выберите пол партнера"
+                bottom={ lookingFor ? '' : 'Выберите пол' }
+                value={ lookingFor }
+                onChange={ event => this.setState({
+                  user: {
+                    lookingFor: event.target.value
+                  }
+                }) }
+                name="purpose"
+              >
+                <option value="0">Не имеет значения</option>
+                <option value="1">Женский</option>
+                <option value="2">Мужской</option>
+              </Select>
             </FormLayout>
-            <Select
-              top="Я ищу"
-              placeholder="Выберите пол партнера"
-              status={purpose ? 'valid' : 'error'}
-              bottom={purpose ? '' : 'Выберите пол'}
-              onChange={this.onChange}
-              value={purpose}
-              name="purpose"
-            >
-              <option value="0">Мужской</option>
-              <option value="1">Женский</option>
-              <option value="2">Не имеет значения</option>
-            </Select>
+
           </Group>
 
-          <div style={ buttonStyle}>
-            <Button size="xl" level="secondary" >Extra large</Button>
+          <div style={ buttonStyle } onClick={ this.userProfileUpdate }>
+            <Button size="xl" level="secondary">Extra large</Button>
           </div>
         </Panel>
       </View>
@@ -172,16 +218,17 @@ export default class App extends React.Component {
           <div style={ appStyles }>
             <div style={ appStyles }>
               <div style={ wrapperStyles }>
-              { cards.length > 0 && (
-                <>
-                  <Swipeable onAfterSwipe={ this.remove }>
-                    <Card>{ cards[0] }</Card>
-                  </Swipeable>
-                  { cards.length > 1 &&
-                  <Card zIndex={ -1 }>{ cards[1] }</Card> }
-                </>
-              ) }
-              { cards.length <= 1 && <Card zIndex={ -2 }>No more cards</Card> }
+                { cards.length > 0 && (
+                  <>
+                    <Swipeable onAfterSwipe={ this.remove }>
+                      <Card product={ cards[0]}/>
+                    </Swipeable>
+                    { cards.length > 1 &&
+                    <Card zIndex={ -1 } product={cards[1]} /> }
+                  </>
+                ) }
+                { cards.length <= 1 &&
+                <Card zIndex={ -2 } /> }
               </div>
             </div>
           </div>
