@@ -15,12 +15,10 @@ export default class UserService {
   }
 
   async getProfile() {
-    const res = await ApiService.getData(
+    return await ApiService.getData(
       `${ this._apiUser }/profile`,
       UserCache._it.getMiniAppToken()
     );
-
-    return res.json()
   }
 
   async updateProfile(profile) {
