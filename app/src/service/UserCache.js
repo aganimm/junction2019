@@ -41,6 +41,7 @@ export default class UserCache {
   refreshMiniAppToken = (callback) => {
     const { _userId, _accessToken } = this;
     if (_userId && _accessToken) {
+      console.log('Reg with ', _userId, _accessToken);
       this._userService.registration(
         { userId: _userId, accessToken: _accessToken })
         .then(result => {
